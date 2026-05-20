@@ -19,16 +19,21 @@ class Settings(BaseSettings):
     chunks_dir: Path = BASE_DIR / "data" / "chunks"
     processed_dir: Path = BASE_DIR / "data" / "processed"
 
-    # LLM API
+    # LLM API (OpenAI-compatible, e.g. MiMo, OpenAI, etc.)
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     openai_base_url: str = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+
+    # Ollama (local embedding)
+    ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+
+    # DashScope (optional, for cloud embedding/reranking)
     dashscope_api_key: str = os.getenv("DASHSCOPE_API_KEY", "")
 
     # Models
     chat_model: str = os.getenv("CHAT_MODEL", "qwen-plus")
     vision_model: str = os.getenv("VISION_MODEL", "qwen-vl-max")
-    embedding_model: str = os.getenv("EMBEDDING_MODEL", "text-embedding-v3")
-    reranker_model: str = os.getenv("RERANKER_MODEL", "rerank-v3.5")
+    embedding_model: str = os.getenv("EMBEDDING_MODEL", "qwen3-embedding:4b")
+    reranker_model: str = os.getenv("RERANKER_MODEL", "")
 
     # Auth
     kafu_api_token: str = os.getenv("KAFU_API_TOKEN", "sk_customer_20260518")

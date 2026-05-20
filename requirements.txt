@@ -4,7 +4,10 @@ uvicorn[standard]==0.34.0
 pydantic==2.10.4
 pydantic-settings==2.7.1
 
-# DashScope API (embedding + rerank + LLM)
+# HTTP client (for Ollama API)
+httpx==0.28.1
+
+# Cloud embedding/reranking (DashScope, used on Vercel)
 dashscope==1.20.14
 
 # LLM API (OpenAI-compatible)
