@@ -27,8 +27,8 @@ class Settings(BaseSettings):
     # Models
     chat_model: str = os.getenv("CHAT_MODEL", "qwen-plus")
     vision_model: str = os.getenv("VISION_MODEL", "qwen-vl-max")
-    embedding_model: str = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-zh-v1.5")
-    reranker_model: str = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-v2-m3")
+    embedding_model: str = os.getenv("EMBEDDING_MODEL", "text-embedding-v3")
+    reranker_model: str = os.getenv("RERANKER_MODEL", "rerank-v3.5")
 
     # Auth
     kafu_api_token: str = os.getenv("KAFU_API_TOKEN", "sk_customer_20260518")

@@ -1,0 +1,16 @@
+﻿# Exclude large manual images
+手册/
+
+# Exclude data files
+data/chunks/
+data/index/
+data/processed/
+
+# Exclude submissions
+question_public.csv
+submission_final.csv
+submission*.csv
+
+# Exclude test/debug files
+test*.py
+scripts/test*

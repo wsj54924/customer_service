@@ -2,25 +2,19 @@
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
 pydantic==2.10.4
+pydantic-settings==2.7.1
 
-# RAG pipeline
-langchain==0.3.14
-langchain-community==0.3.14
-langchain-text-splitters==0.3.4
-faiss-cpu==1.9.0.post1
-sentence-transformers==3.3.1
+# DashScope API (embedding + rerank + LLM)
+dashscope==1.20.14
 
-# Embedding & reranking
-# bge-large-zh-v1.5 and bge-reranker-v2-m3 are downloaded via sentence-transformers
-
-# LLM API
+# LLM API (OpenAI-compatible)
 openai==1.58.1
-dashscope==1.20.14  # Alibaba Qwen API
 
 # Image processing
 Pillow==11.1.0
 
 # Utilities
+numpy
 python-dotenv==1.0.1
 pandas==2.2.3
 tqdm==4.67.1
