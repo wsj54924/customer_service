@@ -1,0 +1,207 @@
+{
+  "manual_count": 21,
+  "total_characters": 1289481,
+  "total_images": 2608,
+  "image_categories": 70,
+  "total_questions": 397,
+  "manual_stats": [
+    {
+      "name": "VR头显手册",
+      "chars": 5322,
+      "lines": 1,
+      "pic_count": 10
+    },
+    {
+      "name": "人体工学椅手册",
+      "chars": 800,
+      "lines": 1,
+      "pic_count": 16
+    },
+    {
+      "name": "健身单车手册",
+      "chars": 11524,
+      "lines": 1,
+      "pic_count": 43
+    },
+    {
+      "name": "健身追踪器手册",
+      "chars": 14172,
+      "lines": 1,
+      "pic_count": 57
+    },
+    {
+      "name": "儿童电动摩托车手册",
+      "chars": 5575,
+      "lines": 1,
+      "pic_count": 23
+    },
+    {
+      "name": "冰箱手册",
+      "chars": 8907,
+      "lines": 1,
+      "pic_count": 58
+    },
+    {
+      "name": "功能键盘手册",
+      "chars": 4535,
+      "lines": 1,
+      "pic_count": 19
+    },
+    {
+      "name": "发电机手册",
+      "chars": 11085,
+      "lines": 1,
+      "pic_count": 102
+    },
+    {
+      "name": "可编程温控器手册",
+      "chars": 5998,
+      "lines": 1,
+      "pic_count": 57
+    },
+    {
+      "name": "吹风机手册",
+      "chars": 8214,
+      "lines": 1,
+      "pic_count": 54
+    },
+    {
+      "name": "摩托艇手册",
+      "chars": 7579,
+      "lines": 1,
+      "pic_count": 35
+    },
+    {
+      "name": "水泵手册",
+      "chars": 6687,
+      "lines": 1,
+      "pic_count": 78
+    },
+    {
+      "name": "汇总英文手册",
+      "chars": 1130130,
+      "lines": 21,
+      "pic_count": 1783
+    },
+    {
+      "name": "洗碗机手册",
+      "chars": 14623,
+      "lines": 1,
+      "pic_count": 29
+    },
+    {
+      "name": "烤箱手册",
+      "chars": 6623,
+      "lines": 1,
+      "pic_count": 30
+    },
+    {
+      "name": "电钻手册",
+      "chars": 11255,
+      "lines": 1,
+      "pic_count": 26
+    },
+    {
+      "name": "相机手册",
+      "chars": 17556,
+      "lines": 1,
+      "pic_count": 87
+    },
+    {
+      "name": "空气净化器手册",
+      "chars": 3367,
+      "lines": 1,
+      "pic_count": 27
+    },
+    {
+      "name": "空调手册",
+      "chars": 8325,
+      "lines": 1,
+      "pic_count": 36
+    },
+    {
+      "name": "蒸汽清洁机手册",
+      "chars": 3671,
+      "lines": 1,
+      "pic_count": 17
+    },
+    {
+      "name": "蓝牙激光鼠标手册",
+      "chars": 3533,
+      "lines": 1,
+      "pic_count": 19
+    }
+  ],
+  "image_distribution": {
+    "Manual09": 286,
+    "Manual34": 253,
+    "Manual10": 250,
+    "Manual23": 137,
+    "Manual25": 99,
+    "Manual20": 93,
+    "Manual29": 82,
+    "Manual19": 81,
+    "Camera": 77,
+    "Manual18": 72,
+    "Manual22": 61,
+    "Manual24": 60,
+    "Manual17": 53,
+    "Manual16": 52,
+    "Manual36": 51,
+    "Manual04": 50,
+    "Manual07": 49,
+    "Manual31": 47,
+    "Manual35": 46,
+    "Manual30": 42,
+    "Manual14": 41,
+    "Manual39": 36,
+    "Manual01": 35,
+    "Manual40": 35,
+    "pump": 31,
+    "generator": 29,
+    "Manual03": 27,
+    "Manual06": 25,
+    "Manual37": 24,
+    "Manual32": 23,
+    "Manual08": 19,
+    "Manual27": 19,
+    "drill0": 18,
+    "Manual26": 18,
+    "Manual05": 17,
+    "Manual21": 17,
+    "air_fryer": 16,
+    "Manual02": 16,
+    "Manual15": 16,
+    "oven": 16,
+    "Manual33": 15,
+    "Manual12": 14,
+    "Manual13": 14,
+    "Manual28": 14,
+    "toothbrush0": 11,
+    "Boat": 8,
+    "Dish_washer": 8,
+    "eReader": 8,
+    "fax": 8,
+    "jetski": 8,
+    "earphones": 7,
+    "thermostat": 7,
+    "Manual11": 6,
+    "Manual38": 6,
+    "television0": 6,
+    "fridge": 5,
+    "hybrid_instant_camera": 5,
+    "lawn_mower": 5,
+    "rideon_motorcycle": 5,
+    "Blower": 4,
+    "fitness_trackers": 4,
+    "multi-use_pressure_cooker_and_air_fryer": 4,
+    "vr": 4,
+    "snowmobile": 3,
+    "exercise_bikes": 2,
+    "function_keyboard": 2,
+    "Security_Camera": 2,
+    "washing_machine1": 2,
+    "air_conditioner": 1,
+    "landline": 1
+  }
+}

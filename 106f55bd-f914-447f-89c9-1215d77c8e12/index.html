@@ -1,0 +1,2090 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartService AI — 智能客服</title>
+<style>
+/* ========================================
+   Intercom Design System Tokens
+   ======================================== */
+:root {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --fg: #111111;
+  --muted: #7b7b78;
+  --border: #dedbd6;
+  --accent: #ff5600;
+  --accent-hover: #e64d00;
+  --cream: #faf9f6;
+  --black-80: #313130;
+  --black-60: #626260;
+  --black-50: #7b7b78;
+  --content-tertiary: #9c9fa5;
+  --warm-sand: #d3cec6;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --transition: 180ms ease;
+}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; font-size: inherit; }
+
+/* ========================================
+   Utilities
+   ======================================== */
+.hidden { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+/* ========================================
+   Landing Page
+   ======================================== */
+#landing-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Landing Nav */
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.landing-nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--fg);
+}
+.landing-nav .logo svg { width: 32px; height: 32px; }
+.landing-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.landing-nav-links a {
+  font-size: 15px;
+  color: var(--black-60);
+  transition: color var(--transition);
+}
+.landing-nav-links a:hover { color: var(--fg); text-decoration: none; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--fg);
+  color: var(--surface);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  transition: transform var(--transition), background var(--transition);
+}
+.btn-primary:hover {
+  transform: scale(1.1);
+  background: var(--black-80);
+  text-decoration: none;
+}
+.btn-primary:active { transform: scale(0.85); }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+}
+.btn-outline:hover {
+  transform: scale(1.1);
+  background: var(--fg);
+  color: var(--surface);
+  text-decoration: none;
+}
+.btn-outline:active { transform: scale(0.85); }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 40px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -2.4px;
+  color: var(--fg);
+  margin-bottom: 24px;
+}
+.hero-gradient {
+  background: linear-gradient(135deg, var(--accent), #ff8a3d, #ffb347, var(--accent));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.hero-deck {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--black-60);
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 0 40px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.feature-card:hover {
+  border-color: var(--warm-sand);
+  transform: translateY(-2px);
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+.feature-icon.rag { background: #fff0e6; color: var(--accent); }
+.feature-icon.multi { background: #e6f0ff; color: #3b82f6; }
+.feature-icon.dialogue { background: #e6ffe6; color: #22c55e; }
+.feature-card h3 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  margin-bottom: 8px;
+}
+.feature-card p {
+  font-size: 15px;
+  color: var(--black-60);
+  line-height: 1.5;
+}
+
+/* Tech Stack */
+.tech-section {
+  padding: 60px 40px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.tech-section h2 {
+  text-align: center;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.tech-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--black-80);
+  font-weight: 500;
+}
+
+/* Architecture */
+.architecture {
+  padding: 80px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.architecture h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.96px;
+  margin-bottom: 40px;
+}
+.arch-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.arch-box {
+  padding: 16px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  min-width: 140px;
+}
+.arch-box .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.arch-box .name {
+  font-size: 15px;
+  font-weight: 500;
+}
+.arch-arrow {
+  font-size: 20px;
+  color: var(--border);
+}
+
+/* Demo Embed */
+.demo-embed {
+  padding: 80px 40px;
+  text-align: center;
+  background: var(--bg);
+}
+.demo-embed h2 {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.96px;
+  margin-bottom: 16px;
+}
+.demo-embed p {
+  color: var(--black-60);
+  font-size: 17px;
+  margin-bottom: 32px;
+}
+.demo-widget {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.demo-widget-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+.demo-widget-header .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+.demo-widget-header span {
+  font-size: 14px;
+  font-weight: 500;
+}
+.demo-widget-body {
+  padding: 20px;
+  text-align: left;
+}
+.demo-bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 85%;
+  margin-bottom: 12px;
+}
+.demo-bubble.ai {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+.demo-bubble.user {
+  background: var(--fg);
+  color: var(--surface);
+  margin-left: auto;
+}
+.demo-widget-input {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+}
+.demo-widget-input input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.demo-widget-input input:focus { border-color: var(--accent); }
+.demo-widget-input button {
+  padding: 10px 16px;
+  background: var(--fg);
+  color: var(--surface);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: transform var(--transition);
+}
+.demo-widget-input button:hover { transform: scale(1.1); }
+
+/* Landing Footer */
+.landing-footer {
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ========================================
+   Chat Application
+   ======================================== */
+#chat-app {
+  display: none;
+  height: 100vh;
+  overflow: hidden;
+}
+#chat-app.active { display: flex; }
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 280ms ease, opacity 280ms ease;
+}
+.sidebar.collapsed {
+  margin-left: -280px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar-header {
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+}
+.sidebar-logo svg { width: 28px; height: 28px; }
+.sidebar-collapse-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  transition: background var(--transition), color var(--transition);
+}
+.sidebar-collapse-btn:hover { background: var(--bg); color: var(--fg); }
+
+.new-chat-btn {
+  margin: 12px 16px;
+  padding: 10px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform var(--transition), background var(--transition);
+}
+.new-chat-btn:hover { transform: scale(1.05); background: var(--accent-hover); }
+.new-chat-btn:active { transform: scale(0.95); }
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 8px;
+}
+.chat-history-group {
+  padding: 12px 8px 4px;
+}
+.chat-history-group-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.chat-history-item {
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition);
+  margin-bottom: 2px;
+}
+.chat-history-item:hover { background: var(--bg); }
+.chat-history-item.active { background: var(--bg); }
+.chat-history-item-title {
+  font-size: 14px;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chat-history-item-time {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-footer-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  transition: background var(--transition), color var(--transition);
+}
+.sidebar-footer-btn:hover { background: var(--bg); color: var(--fg); }
+
+/* Chat Main */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+
+/* Chat Header */
+.chat-header {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+}
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sidebar-toggle-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  transition: background var(--transition), color var(--transition);
+}
+.sidebar-toggle-btn:hover { background: var(--bg); color: var(--fg); }
+.chat-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.chat-header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chat-header-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  transition: background var(--transition), color var(--transition);
+}
+.chat-header-btn:hover { background: var(--bg); color: var(--fg); }
+.chat-header-btn.active { color: var(--accent); background: #fff0e6; }
+
+/* Welcome Screen */
+.welcome-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+.welcome-screen h2 {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.96px;
+  margin-bottom: 8px;
+}
+.welcome-screen p {
+  color: var(--black-60);
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+.suggestion-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 560px;
+  width: 100%;
+}
+.suggestion-card {
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--fg);
+  line-height: 1.4;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.suggestion-card:hover {
+  border-color: var(--warm-sand);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.suggestion-card .card-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+/* Messages Area */
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  scroll-behavior: smooth;
+}
+.message-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  animation: messageIn 300ms ease-out;
+}
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.message-row.user {
+  flex-direction: row-reverse;
+}
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.message-avatar.ai {
+  background: linear-gradient(135deg, var(--accent), #ff8a3d);
+  color: #fff;
+}
+.message-avatar.user {
+  background: var(--fg);
+  color: var(--surface);
+}
+.message-content {
+  max-width: 680px;
+  min-width: 0;
+}
+.message-bubble {
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: break-word;
+}
+.message-bubble.ai {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--fg);
+}
+.message-bubble.user {
+  background: var(--fg);
+  color: var(--surface);
+}
+.message-bubble strong { font-weight: 600; }
+.message-bubble code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 2px 6px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 3px;
+}
+.message-bubble.user code {
+  background: rgba(255,255,255,0.15);
+}
+.message-bubble pre {
+  background: rgba(0,0,0,0.06);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: 8px 0;
+}
+.message-bubble pre code {
+  padding: 0;
+  background: none;
+}
+.message-bubble ul, .message-bubble ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+.message-bubble li { margin-bottom: 4px; }
+
+/* PIC Images */
+.message-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.message-img-thumb {
+  width: 120px;
+  height: 90px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+.message-img-thumb:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+.message-img-thumb svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Message Actions */
+.message-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.message-action-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-size: 14px;
+  transition: background var(--transition), color var(--transition);
+}
+.message-action-btn:hover { background: var(--border); color: var(--fg); }
+.message-action-btn.active { color: var(--accent); }
+
+/* Typing Indicator */
+.typing-indicator {
+  display: none;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: fit-content;
+  margin-bottom: 20px;
+}
+.typing-indicator.visible { display: flex; gap: 5px; align-items: center; }
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: typingBounce 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Input Area */
+.chat-input-area {
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.chat-input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 8px 12px;
+  transition: border-color var(--transition);
+}
+.chat-input-wrapper:focus-within { border-color: var(--accent); }
+.chat-input {
+  flex: 1;
+  border: none;
+  background: none;
+  resize: none;
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 24px;
+  max-height: 120px;
+  outline: none;
+  color: var(--fg);
+}
+.chat-input::placeholder { color: var(--content-tertiary); }
+.chat-send-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fg);
+  color: var(--surface);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: transform var(--transition), background var(--transition);
+}
+.chat-send-btn:hover { transform: scale(1.1); background: var(--black-80); }
+.chat-send-btn:active { transform: scale(0.85); }
+.chat-send-btn:disabled { opacity: 0.4; pointer-events: none; }
+
+/* Right Panel */
+.right-panel {
+  width: 300px;
+  min-width: 300px;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: margin-right 280ms ease, opacity 280ms ease;
+}
+.right-panel.collapsed {
+  margin-right: -300px;
+  opacity: 0;
+  pointer-events: none;
+}
+.right-panel-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.right-panel-tab {
+  flex: 1;
+  padding: 12px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+.right-panel-tab:hover { color: var(--fg); }
+.right-panel-tab.active {
+  color: var(--fg);
+  border-bottom-color: var(--accent);
+}
+.right-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+.panel-section { margin-bottom: 20px; }
+.panel-section-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.doc-chunk {
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--black-80);
+}
+.doc-chunk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.doc-chunk-source {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.doc-chunk-score {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+}
+.score-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 500ms ease;
+}
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.images-grid .img-cell {
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+.images-grid .img-cell:hover { transform: scale(1.03); }
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.info-row:last-child { border-bottom: none; }
+.info-label { color: var(--muted); }
+.info-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg);
+  text-align: right;
+  max-width: 160px;
+  word-break: break-all;
+}
+.type-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.type-badge.product { background: #e6f0ff; color: #3b82f6; }
+.type-badge.service { background: #e6ffe6; color: #22c55e; }
+.type-badge.general { background: #fff0e6; color: var(--accent); }
+
+/* ========================================
+   Settings Modal
+   ======================================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 200ms ease;
+}
+.modal-overlay.visible { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  width: 520px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 250ms ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+.modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  transition: background var(--transition), color var(--transition);
+  font-size: 18px;
+}
+.modal-close:hover { background: var(--bg); color: var(--fg); }
+.modal-body { padding: 20px 24px; }
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.form-sublabel {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 14px;
+  color: var(--fg);
+  outline: none;
+  transition: border-color var(--transition);
+}
+.form-input:focus { border-color: var(--accent); }
+.form-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 14px;
+  color: var(--fg);
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237b7b78' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color var(--transition);
+}
+.form-select:focus { border-color: var(--accent); }
+.range-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.range-wrapper input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+  height: 4px;
+}
+.range-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg);
+  min-width: 36px;
+  text-align: right;
+}
+.lang-options {
+  display: flex;
+  gap: 8px;
+}
+.lang-option {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+.lang-option:hover { border-color: var(--warm-sand); }
+.lang-option.active {
+  border-color: var(--accent);
+  background: #fff0e6;
+  color: var(--accent);
+  font-weight: 500;
+}
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.modal-footer .btn-primary { padding: 8px 20px; font-size: 14px; }
+
+/* ========================================
+   Image Lightbox
+   ======================================== */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.lightbox.visible { display: flex; }
+.lightbox svg {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: var(--radius-lg);
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 1024px) {
+  .right-panel { display: none; }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 100;
+    height: 100vh;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.collapsed {
+    margin-left: -280px;
+  }
+  .features { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 36px; letter-spacing: -1px; }
+  .suggestion-cards { grid-template-columns: 1fr; }
+  .landing-nav { padding: 16px 20px; }
+  .landing-nav-links a:not(.btn-primary) { display: none; }
+  .hero { padding: 48px 20px 40px; }
+  .hero-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     LANDING PAGE
+     ============================================ -->
+<div id="landing-page">
+  <!-- Nav -->
+  <nav class="landing-nav">
+    <div class="logo">
+      <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#ff5600"/><path d="M8 16c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#fff"/></svg>
+      SmartService AI
+    </div>
+    <div class="landing-nav-links">
+      <a href="#features">功能</a>
+      <a href="#tech">技术栈</a>
+      <a href="#architecture">架构</a>
+      <a href="#" class="btn-primary" onclick="switchToChat(); return false;">开始使用</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">RAG-Powered Customer Service</div>
+    <h1>AI 智能客服<br><span class="hero-gradient">秒级响应，精准解答</span></h1>
+    <p class="hero-deck">基于 21 份产品手册构建的知识库，支持中英文、图文混合回复，覆盖家电、电子、健身器材全品类售后场景。</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="switchToChat(); return false;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 10.5c0 .83-.67 1.5-1.5 1.5H5l-3 3V3.5C2 2.67 2.67 2 3.5 2h9c.83 0 1.5.67 1.5 1.5v5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        开始对话
+      </a>
+      <a href="#features" class="btn-outline">了解更多</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="feature-card">
+      <div class="feature-icon rag">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h10M4 18h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>RAG 知识库</h3>
+      <p>基于 21 份产品手册构建向量知识库，FAISS 检索 + BGE Reranker 重排，确保每次回答都有据可依。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon multi">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M9 3v18" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <h3>多模态理解</h3>
+      <p>支持文字 + 图片混合输入，能识别产品故障照片并匹配对应的维修指南和说明图片。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon dialogue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>多轮对话</h3>
+      <p>智能维护对话上下文，支持追问、澄清和话题切换，像真人客服一样流畅交流。</p>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="tech-section" id="tech">
+    <h2>技术栈</h2>
+    <div class="tech-badges">
+      <span class="tech-badge">FastAPI</span>
+      <span class="tech-badge">FAISS</span>
+      <span class="tech-badge">BGE Embedding</span>
+      <span class="tech-badge">BGE Reranker</span>
+      <span class="tech-badge">LangChain</span>
+      <span class="tech-badge">OpenAI / Claude</span>
+      <span class="tech-badge">Vue / React</span>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="architecture" id="architecture">
+    <h2>系统架构</h2>
+    <div class="arch-diagram">
+      <div class="arch-box">
+        <div class="label">前端</div>
+        <div class="name">Chat UI</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="label">API</div>
+        <div class="name">FastAPI</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="label">检索</div>
+        <div class="name">FAISS + Reranker</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="label">生成</div>
+        <div class="name">LLM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Embed -->
+  <section class="demo-embed" id="demo">
+    <h2>在线体验</h2>
+    <p>点击"开始对话"，与 SmartService AI 实时交流</p>
+    <div class="demo-widget">
+      <div class="demo-widget-header">
+        <div class="dot"></div>
+        <span>SmartService AI · 在线</span>
+      </div>
+      <div class="demo-widget-body">
+        <div class="demo-bubble ai">你好！我是 SmartService AI 智能客服，可以帮你解答产品使用、退换货、物流等问题。请问有什么可以帮到你？</div>
+        <div class="demo-bubble user">冰箱不制冷怎么办？</div>
+        <div class="demo-bubble ai">冰箱不制冷可能有以下几个原因：1. 温控器设置不当 2. 冷凝器积尘 3. 门封条老化。建议先检查温控器是否在正确档位……</div>
+      </div>
+      <div class="demo-widget-input">
+        <input type="text" placeholder="输入你的问题…" onclick="switchToChat()">
+        <button onclick="switchToChat()">发送</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    SmartService AI &mdash; 基于 RAG 的智能客服系统
+  </footer>
+</div>
+
+<!-- ============================================
+     CHAT APPLICATION
+     ============================================ -->
+<div id="chat-app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo sidebar-logo">
+        <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#ff5600"/><path d="M8 16c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#fff"/></svg>
+        SmartService AI
+      </div>
+      <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="收起侧边栏">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <button class="new-chat-btn" onclick="newChat()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      新对话
+    </button>
+    <div class="chat-history" id="chatHistory">
+      <div class="chat-history-group">
+        <div class="chat-history-group-title">今天</div>
+        <div class="chat-history-item" onclick="loadHistoryItem(0)">
+          <div class="chat-history-item-title">冰箱不制冷怎么办？</div>
+          <div class="chat-history-item-time">14:32</div>
+        </div>
+        <div class="chat-history-item" onclick="loadHistoryItem(1)">
+          <div class="chat-history-item-title">DCB107 指示灯含义</div>
+          <div class="chat-history-item-time">13:15</div>
+        </div>
+      </div>
+      <div class="chat-history-group">
+        <div class="chat-history-group-title">昨天</div>
+        <div class="chat-history-item" onclick="loadHistoryItem(2)">
+          <div class="chat-history-item-title">如何申请退换货？</div>
+          <div class="chat-history-item-time">昨天 16:40</div>
+        </div>
+      </div>
+      <div class="chat-history-group">
+        <div class="chat-history-group-title">更早</div>
+        <div class="chat-history-item" onclick="loadHistoryItem(3)">
+          <div class="chat-history-item-title">jetski 最大载重</div>
+          <div class="chat-history-item-time">5月18日</div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <button class="sidebar-footer-btn" onclick="openSettings()" title="设置">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 11a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.5"/><path d="M15.42 11.22a1.3 1.3 0 00.26 1.43l.05.06a1.58 1.58 0 11-2.23 2.23l-.06-.05a1.3 1.3 0 00-1.43-.26 1.3 1.3 0 00-.77 1.19v.17a1.58 1.58 0 01-3.16 0v-.09a1.3 1.3 0 00-.78-1.17 1.3 1.3 0 00-1.43.26l-.06.05a1.58 1.58 0 11-2.23-2.23l.05-.06a1.3 1.3 0 00.26-1.43 1.3 1.3 0 00-1.19-.77h-.17a1.58 1.58 0 010-3.16h.09a1.3 1.3 0 001.17-.78 1.3 1.3 0 00-.26-1.43l-.05-.06a1.58 1.58 0 112.23-2.23l.06.05a1.3 1.3 0 001.43.26h.04A1.3 1.3 0 008.08 2.6v-.17a1.58 1.58 0 013.16 0v.09a1.3 1.3 0 00.78 1.17 1.3 1.3 0 001.43-.26l.06-.05a1.58 1.58 0 112.23 2.23l-.05.06a1.3 1.3 0 00-.26 1.43v.04a1.3 1.3 0 001.19.77h.17a1.58 1.58 0 010 3.16h-.09a1.3 1.3 0 00-1.17.78z" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <button class="sidebar-footer-btn" onclick="switchToLanding()" title="返回首页">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l6-6 6 6M5 7.5V15a1 1 0 001 1h6a1 1 0 001-1V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Chat Area -->
+  <main class="chat-main">
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="chat-header-left">
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="展开侧边栏" id="sidebarToggle">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <span class="chat-title" id="chatTitle">新对话</span>
+      </div>
+      <div class="chat-header-right">
+        <button class="chat-header-btn" id="panelToggle" onclick="toggleRightPanel()" title="知识面板">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 2v14" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+      <h2>你好，有什么可以帮你？</h2>
+      <p>我可以回答产品使用、退换货、物流等各类问题</p>
+      <div class="suggestion-cards">
+        <div class="suggestion-card" onclick="askSuggestion('冰箱不制冷怎么办？')">
+          <div class="card-icon">❄️</div>
+          冰箱不制冷怎么办？
+        </div>
+        <div class="suggestion-card" onclick="askSuggestion('如何申请退换货？')">
+          <div class="card-icon">📦</div>
+          如何申请退换货？
+        </div>
+        <div class="suggestion-card" onclick="askSuggestion('DCB107指示灯闪烁是什么意思？')">
+          <div class="card-icon">💡</div>
+          DCB107指示灯闪烁是什么意思？
+        </div>
+        <div class="suggestion-card" onclick="askSuggestion('What is the maximum load for the jetski?')">
+          <div class="card-icon">🚤</div>
+          What is the maximum load for the jetski?
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="messages-area hidden" id="messagesArea">
+      <!-- Messages injected here -->
+      <div class="typing-indicator" id="typingIndicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input-area">
+      <div class="chat-input-wrapper">
+        <textarea class="chat-input" id="chatInput" placeholder="输入你的问题…" rows="1" onkeydown="handleInputKey(event)"></textarea>
+        <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Right Panel -->
+  <aside class="right-panel collapsed" id="rightPanel">
+    <div class="right-panel-tabs">
+      <button class="right-panel-tab active" onclick="switchRightTab(this, 'knowledge')">知识库</button>
+      <button class="right-panel-tab" onclick="switchRightTab(this, 'images')">图片</button>
+      <button class="right-panel-tab" onclick="switchRightTab(this, 'info')">会话信息</button>
+    </div>
+    <div class="right-panel-content" id="rightPanelContent">
+      <!-- Knowledge Tab (default) -->
+      <div id="tab-knowledge">
+        <div class="panel-section">
+          <div class="panel-section-title">检索到的文档片段</div>
+          <div id="docChunks">
+            <div class="doc-chunk">
+              <div class="doc-chunk-header">
+                <span class="doc-chunk-source">冰箱使用手册 v3.2</span>
+                <span class="doc-chunk-score">96%</span>
+              </div>
+              <div>冰箱不制冷的常见原因包括：温控器设置不正确、冷凝器积尘、门封条老化漏冷、制冷剂不足等。建议用户先检查温控器档位…</div>
+              <div class="score-bar"><div class="score-bar-fill" style="width:96%"></div></div>
+            </div>
+            <div class="doc-chunk">
+              <div class="doc-chunk-header">
+                <span class="doc-chunk-source">冰箱故障排查指南</span>
+                <span class="doc-chunk-score">91%</span>
+              </div>
+              <div>Step 1: 确认电源正常接入。Step 2: 检查温控器旋钮位置。Step 3: 检查压缩机是否运转…</div>
+              <div class="score-bar"><div class="score-bar-fill" style="width:91%"></div></div>
+            </div>
+            <div class="doc-chunk">
+              <div class="doc-chunk-header">
+                <span class="doc-chunk-source">售后 FAQ</span>
+                <span class="doc-chunk-score">84%</span>
+              </div>
+              <div>若自行排查无效，请联系售后服务中心，提供产品序列号和故障描述，工程师将在24小时内响应。</div>
+              <div class="score-bar"><div class="score-bar-fill" style="width:84%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Images Tab -->
+      <div id="tab-images" class="hidden">
+        <div class="panel-section">
+          <div class="panel-section-title">相关产品图片</div>
+          <div class="images-grid">
+            <div class="img-cell" onclick="openLightbox('manual-cover')">
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f0eb"/><rect x="20" y="15" width="120" height="90" rx="4" fill="#e8e2da"/><text x="80" y="50" text-anchor="middle" font-size="11" fill="#999" font-family="system-ui">产品手册封面</text><rect x="40" y="60" width="80" height="30" rx="3" fill="#d3cec6"/></svg>
+            </div>
+            <div class="img-cell" onclick="openLightbox('temp-control')">
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f0f5ff"/><rect x="30" y="10" width="100" height="100" rx="4" fill="#dde8ff"/><circle cx="80" cy="55" r="25" stroke="#99b3ff" stroke-width="2"/><path d="M80 40v15l10 7" stroke="#65b5ff" stroke-width="2" stroke-linecap="round"/><text x="80" y="95" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">温控器示意图</text></svg>
+            </div>
+            <div class="img-cell" onclick="openLightbox('compressor')">
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f5f0"/><rect x="25" y="20" width="110" height="80" rx="4" fill="#e8e8e0"/><rect x="45" y="35" width="35" height="50" rx="3" fill="#d3cec6"/><rect x="90" y="35" width="30" height="50" rx="3" fill="#d3cec6"/><text x="80" y="105" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">压缩机结构图</text></svg>
+            </div>
+            <div class="img-cell" onclick="openLightbox('door-seal')">
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f0f0"/><rect x="30" y="15" width="100" height="90" rx="4" fill="#f0e0e0"/><path d="M50 40h60v40H50z" stroke="#d3a0a0" stroke-width="2" stroke-dasharray="4 2"/><text x="80" y="65" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">门封条示意图</text></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Info Tab -->
+      <div id="tab-info" class="hidden">
+        <div class="panel-section">
+          <div class="panel-section-title">会话信息</div>
+          <div class="info-row">
+            <span class="info-label">会话 ID</span>
+            <span class="info-value" id="sessionId">sess_8a3f2c</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">问题类型</span>
+            <span class="info-value"><span class="type-badge product">产品咨询</span></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">响应时间</span>
+            <span class="info-value" id="responseTime">1.2s</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">语言</span>
+            <span class="info-value">中文</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">消息数</span>
+            <span class="info-value" id="msgCount">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- ============================================
+     SETTINGS MODAL
+     ============================================ -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>设置</h2>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">API Endpoint</label>
+        <input class="form-input" type="text" id="apiEndpoint" value="http://localhost:8000/api/v1/chat">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Bearer Token</label>
+        <input class="form-input" type="password" id="bearerToken" placeholder="sk-...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">模型选择</label>
+        <select class="form-select" id="modelSelect">
+          <option value="gpt-4o">GPT-4o</option>
+          <option value="gpt-4o-mini">GPT-4o Mini</option>
+          <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+          <option value="deepseek-v3">DeepSeek V3</option>
+          <option value="qwen-72b">Qwen 72B</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Temperature</label>
+        <div class="form-sublabel">值越高回答越随机，越低越确定</div>
+        <div class="range-wrapper">
+          <input type="range" id="temperature" min="0" max="100" value="30" oninput="updateRangeLabel('tempLabel', this.value, 100)">
+          <span class="range-value" id="tempLabel">0.30</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Max Tokens</label>
+        <div class="range-wrapper">
+          <input type="range" id="maxTokens" min="256" max="4096" value="2048" step="256" oninput="updateRangeLabel('tokenLabel', this.value, 1)">
+          <span class="range-value" id="tokenLabel">2048</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">语言偏好</label>
+        <div class="lang-options">
+          <div class="lang-option active" onclick="selectLang(this, 'zh')">中文</div>
+          <div class="lang-option" onclick="selectLang(this, 'en')">English</div>
+          <div class="lang-option" onclick="selectLang(this, 'auto')">自动检测</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeSettings()" style="padding:8px 20px;font-size:14px;">取消</button>
+      <button class="btn-primary" onclick="saveSettings()">保存设置</button>
+    </div>
+  </div>
+</div>
+
+<!-- Image Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <svg viewBox="0 0 320 240" fill="none" id="lightboxSvg">
+    <rect width="320" height="240" rx="8" fill="#f5f0eb"/>
+    <text x="160" y="120" text-anchor="middle" font-size="14" fill="#999" font-family="system-ui">加载中...</text>
+  </svg>
+</div>
+
+<script>
+/* ========================================
+   State
+   ======================================== */
+const state = {
+  activeView: 'landing', // 'landing' | 'chat'
+  sidebarOpen: true,
+  rightPanelOpen: false,
+  currentChat: null,
+  messageCount: 0,
+  sessionId: 'sess_' + Math.random().toString(36).slice(2, 8),
+  lang: 'zh',
+  sending: false
+};
+
+/* ========================================
+   Navigation
+   ======================================== */
+function switchToChat() {
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('chat-app').classList.add('active');
+  state.activeView = 'chat';
+  document.getElementById('chatInput').focus();
+}
+
+function switchToLanding() {
+  document.getElementById('chat-app').classList.remove('active');
+  document.getElementById('landing-page').style.display = '';
+  state.activeView = 'landing';
+}
+
+/* ========================================
+   Sidebar
+   ======================================== */
+function toggleSidebar() {
+  state.sidebarOpen = !state.sidebarOpen;
+  document.getElementById('sidebar').classList.toggle('collapsed', !state.sidebarOpen);
+}
+
+/* ========================================
+   Right Panel
+   ======================================== */
+function toggleRightPanel() {
+  state.rightPanelOpen = !state.rightPanelOpen;
+  document.getElementById('rightPanel').classList.toggle('collapsed', !state.rightPanelOpen);
+  document.getElementById('panelToggle').classList.toggle('active', state.rightPanelOpen);
+}
+
+function switchRightTab(btn, tab) {
+  document.querySelectorAll('.right-panel-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-knowledge').classList.toggle('hidden', tab !== 'knowledge');
+  document.getElementById('tab-images').classList.toggle('hidden', tab !== 'images');
+  document.getElementById('tab-info').classList.toggle('hidden', tab !== 'info');
+}
+
+/* ========================================
+   Chat Logic
+   ======================================== */
+function newChat() {
+  state.currentChat = null;
+  state.messageCount = 0;
+  state.sessionId = 'sess_' + Math.random().toString(36).slice(2, 8);
+  document.getElementById('sessionId').textContent = state.sessionId;
+  document.getElementById('msgCount').textContent = '0';
+  document.getElementById('chatTitle').textContent = '新对话';
+  document.getElementById('welcomeScreen').classList.remove('hidden');
+  document.getElementById('messagesArea').classList.add('hidden');
+  document.getElementById('messagesArea').innerHTML = '<div class="typing-indicator" id="typingIndicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+}
+
+function askSuggestion(text) {
+  switchToChat();
+  setTimeout(() => sendMessage(text), 100);
+}
+
+function handleInputKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function sendMessage(text) {
+  if (state.sending) return;
+  const input = document.getElementById('chatInput');
+  const msg = text || input.value.trim();
+  if (!msg) return;
+
+  state.sending = true;
+  input.value = '';
+  input.style.height = 'auto';
+
+  // Switch to messages view
+  document.getElementById('welcomeScreen').classList.add('hidden');
+  document.getElementById('messagesArea').classList.remove('hidden');
+
+  // Add user message
+  appendMessage('user', msg);
+  state.messageCount++;
+
+  // Show typing
+  showTyping(true);
+
+  // Simulate API call
+  const startTime = Date.now();
+  const response = getDemoResponse(msg);
+  const delay = 800 + Math.random() * 1200;
+
+  setTimeout(() => {
+    showTyping(false);
+    appendMessage('ai', response.answer, response.images);
+    state.messageCount++;
+    document.getElementById('msgCount').textContent = state.messageCount;
+    document.getElementById('responseTime').textContent = ((Date.now() - startTime) / 1000).toFixed(1) + 's';
+    updateRightPanel(response);
+    state.sending = false;
+    input.focus();
+  }, delay);
+}
+
+function appendMessage(role, text, images) {
+  const area = document.getElementById('messagesArea');
+  const indicator = document.getElementById('typingIndicator');
+
+  const row = document.createElement('div');
+  row.className = 'message-row ' + role;
+
+  const avatar = document.createElement('div');
+  avatar.className = 'message-avatar ' + role;
+  avatar.textContent = role === 'ai' ? 'AI' : '你';
+
+  const content = document.createElement('div');
+  content.className = 'message-content';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'message-bubble ' + role;
+  bubble.innerHTML = renderMarkdown(text);
+
+  content.appendChild(bubble);
+
+  // Render PIC images
+  if (images && images.length > 0) {
+    const imgContainer = document.createElement('div');
+    imgContainer.className = 'message-images';
+    images.forEach(img => {
+      const thumb = document.createElement('div');
+      thumb.className = 'message-img-thumb';
+      thumb.innerHTML = img.svg;
+      thumb.onclick = () => openLightbox(img.id);
+      imgContainer.appendChild(thumb);
+    });
+    content.appendChild(imgContainer);
+  }
+
+  // Actions for AI messages
+  if (role === 'ai') {
+    const actions = document.createElement('div');
+    actions.className = 'message-actions';
+    actions.innerHTML = `
+      <button class="message-action-btn" onclick="copyMessage(this)" title="复制">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M10 4V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5.5A1.5 1.5 0 003 10h1" stroke="currentColor" stroke-width="1.2"/></svg>
+      </button>
+      <button class="message-action-btn" onclick="feedback(this, 'up')" title="有帮助">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 6.5V12h1.5l.5-3h2l1-4H5.5L4 6.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="message-action-btn" onclick="feedback(this, 'down')" title="无帮助">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10 7.5V2H8.5L8 5h-2L5 9h5.5L10 7.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      </button>
+    `;
+    content.appendChild(actions);
+  }
+
+  row.appendChild(avatar);
+  row.appendChild(content);
+
+  area.insertBefore(row, indicator);
+  area.scrollTop = area.scrollHeight;
+}
+
+function showTyping(show) {
+  const el = document.getElementById('typingIndicator');
+  el.classList.toggle('visible', show);
+  if (show) {
+    const area = document.getElementById('messagesArea');
+    area.scrollTop = area.scrollHeight;
+  }
+}
+
+function renderMarkdown(text) {
+  let html = text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+    .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  // Wrap loose <li> in <ul>
+  html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
+  // Merge adjacent <ul>
+  html = html.replace(/<\/ul><br><ul>/g, '');
+  return '<p>' + html + '</p>';
+}
+
+function copyMessage(btn) {
+  const bubble = btn.closest('.message-content').querySelector('.message-bubble');
+  navigator.clipboard.writeText(bubble.textContent).then(() => {
+    btn.classList.add('active');
+    setTimeout(() => btn.classList.remove('active'), 1500);
+  });
+}
+
+function feedback(btn, type) {
+  const siblings = btn.parentElement.querySelectorAll('.message-action-btn');
+  siblings.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ========================================
+   Right Panel Updates
+   ======================================== */
+function updateRightPanel(response) {
+  // Update knowledge chunks
+  if (response.chunks) {
+    const container = document.getElementById('docChunks');
+    container.innerHTML = response.chunks.map(c => `
+      <div class="doc-chunk">
+        <div class="doc-chunk-header">
+          <span class="doc-chunk-source">${c.source}</span>
+          <span class="doc-chunk-score">${c.score}%</span>
+        </div>
+        <div>${c.text}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${c.score}%"></div></div>
+      </div>
+    `).join('');
+  }
+  // Update session info
+  if (response.type) {
+    const badge = document.querySelector('.type-badge');
+    badge.className = 'type-badge ' + response.type;
+    badge.textContent = response.type === 'product' ? '产品咨询' : response.type === 'service' ? '售后服务' : '一般问题';
+  }
+}
+
+/* ========================================
+   Demo Responses
+   ======================================== */
+function getDemoResponse(question) {
+  const q = question.toLowerCase();
+
+  if (q.includes('冰箱') && (q.includes('不制冷') || q.includes('不冷'))) {
+    return {
+      answer: `冰箱不制冷可能由以下几个原因造成：
+
+**1. 温控器设置不当**
+请检查温控器旋钮是否在正确档位（通常建议设在 3-4 档）。如果旋钮松动或损坏，需要更换温控器。
+
+**2. 冷凝器积尘**
+冰箱背部或底部的冷凝器如果积满灰尘，会影响散热效率。建议每 6 个月清洁一次。
+
+**3. 门封条老化**
+检查门封条是否有裂缝或变形。可以用一张纸夹在门缝中测试——如果能轻松抽出，说明密封不良。
+
+**4. 制冷剂泄漏**
+如果以上排查都正常，可能是制冷剂不足。这种情况需要联系专业维修人员处理。
+
+> 如自行排查无效，请拨打售后热线 400-888-0000，提供产品序列号，工程师将在 24 小时内响应。`,
+      images: [
+        { id: 'temp-control', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f0f5ff"/><circle cx="60" cy="40" r="20" stroke="#65b5ff" stroke-width="1.5"/><path d="M60 28v12l8 5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/><text x="60" y="75" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">温控器</text></svg>' },
+        { id: 'compressor', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f5f5f0"/><rect x="25" y="15" width="70" height="60" rx="3" fill="#e0e0d8"/><rect x="35" y="25" width="25" height="40" rx="2" fill="#d3cec6"/><rect x="68" y="25" width="20" height="40" rx="2" fill="#d3cec6"/><text x="60" y="85" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">压缩机</text></svg>' }
+      ],
+      chunks: [
+        { source: '冰箱使用手册 v3.2', score: 96, text: '冰箱不制冷的常见原因包括：温控器设置不正确、冷凝器积尘、门封条老化漏冷、制冷剂不足等。' },
+        { source: '冰箱故障排查指南', score: 91, text: 'Step 1: 确认电源正常接入。Step 2: 检查温控器旋钮位置。Step 3: 检查压缩机是否运转。' },
+        { source: '售后 FAQ', score: 84, text: '若自行排查无效，请联系售后服务中心，提供产品序列号，工程师将在24小时内响应。' }
+      ],
+      type: 'product'
+    };
+  }
+
+  if (q.includes('退换货') || q.includes('退货') || q.includes('换货') || q.includes('return')) {
+    return {
+      answer: `申请退换货的流程如下：
+
+**退换货条件：**
+- 自签收之日起 **7 天内**可申请无理由退货
+- **15 天内**出现性能故障可换同款商品
+- **1 年保修期**内非人为损坏免费维修
+
+**申请步骤：**
+1. 登录 SmartService 官网或 APP
+2. 进入「我的订单」→ 选择对应订单
+3. 点击「申请售后」→ 选择退货/换货/维修
+4. 填写问题描述并上传故障照片
+5. 提交后等待审核（通常 1-2 个工作日）
+
+**注意事项：**
+- 请保留原包装和配件
+- 退货运费：质量问题由商家承担，非质量问题由买家承担
+- 审核通过后，退款将在 3-5 个工作日内到账
+
+如有疑问可随时联系我，或拨打客服热线 400-888-0000。`,
+      images: [
+        { id: 'return-flow', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#e6ffe6"/><path d="M20 45h20l10-15 10 30 10-25 10 10h20" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="80" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">退换货流程</text></svg>' }
+      ],
+      chunks: [
+        { source: '退换货政策 v2.1', score: 98, text: '自签收之日起7天内可申请无理由退货，15天内出现性能故障可换同款商品。' },
+        { source: '售后操作手册', score: 93, text: '登录官网→我的订单→申请售后→选择类型→填写描述→上传照片→提交。' },
+        { source: '物流与退款说明', score: 87, text: '退款将在3-5个工作日内到账。质量问题运费由商家承担。' }
+      ],
+      type: 'service'
+    };
+  }
+
+  if (q.includes('dcb107') || q.includes('指示灯') || q.includes('闪烁')) {
+    return {
+      answer: `**DCB107 指示灯状态说明：**
+
+DCB107 是一款多用途充电器，指示灯的不同状态代表不同含义：
+
+- **绿灯常亮** — 充电完成，电池已满
+- **绿灯闪烁** — 正在充电中，电量低于 80%
+- **红灯常亮** — 充电异常，请检查电池连接
+- **红灯闪烁** — 温度过高保护，暂停使用等待冷却
+- **黄灯常亮** — 电池检测中，请稍候
+- **灯不亮** — 检查电源连接或适配器是否正常
+
+> 如果红灯持续闪烁且温度正常后仍不恢复，建议联系售后检测。`,
+      images: [
+        { id: 'dcb107', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f0fff0"/><rect x="30" y="15" width="60" height="60" rx="6" fill="#e0f0e0"/><circle cx="48" cy="40" r="6" fill="#22c55e"/><circle cx="72" cy="40" r="6" fill="#ef4444"/><circle cx="60" cy="58" r="6" fill="#eab308"/><text x="60" y="85" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">DCB107 指示灯</text></svg>' }
+      ],
+      chunks: [
+        { source: 'DCB107 用户手册', score: 97, text: '指示灯状态：绿灯常亮=充满，绿灯闪烁=充电中，红灯常亮=异常，红灯闪烁=过温保护。' },
+        { source: '充电器故障排查', score: 88, text: '若红灯闪烁且温度正常后仍不恢复，建议联系售后进行专业检测。' },
+        { source: '安全使用指南', score: 82, text: '充电时请确保通风良好，避免高温环境。切勿在充电时覆盖设备。' }
+      ],
+      type: 'product'
+    };
+  }
+
+  if (q.includes('jetski') || q.includes('载重') || q.includes('load') || q.includes('水上摩托')) {
+    return {
+      answer: `The **maximum load capacity** for the jetski depends on the model:
+
+| Model | Max Load | Max Riders |
+|-------|----------|------------|
+| GTI 130 | 272 kg (600 lbs) | 3 persons |
+| GTR 230 | 272 kg (600 lbs) | 3 persons |
+| RXP-X 325 | 182 kg (400 lbs) | 2 persons |
+| FishPro 170 | 272 kg (600 lbs) | 3 persons |
+
+**Important safety notes:**
+- Maximum load includes passengers, fuel, cargo, and accessories
+- Exceeding the load limit affects stability and handling
+- Always distribute weight evenly across the watercraft
+- Refer to the capacity plate on the hull for your specific unit's rating
+
+> For exact capacity of your unit, check the HIN (Hull Identification Number) plate located on the rear transom.`,
+      images: [
+        { id: 'jetski', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#e6f4ff"/><path d="M20 55 Q40 30 60 40 Q80 50 100 35" stroke="#3b82f6" stroke-width="2" fill="none"/><ellipse cx="60" cy="55" rx="35" ry="12" fill="#d0e4ff" stroke="#65b5ff" stroke-width="1.5"/><text x="60" y="80" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">Jetski Model</text></svg>' }
+      ],
+      chunks: [
+        { source: 'Jetski Owner Manual EN v4.1', score: 95, text: 'Maximum load capacity varies by model. GTI 130: 272 kg (600 lbs) for 3 persons. RXP-X 325: 182 kg (400 lbs) for 2 persons.' },
+        { source: 'Watercraft Safety Guide', score: 89, text: 'Maximum load includes passengers, fuel, cargo, and accessories. Always check the capacity plate on the hull.' },
+        { source: 'Product Specifications Sheet', score: 81, text: 'All models comply with ISO 13590 watercraft safety standards. Load ratings are certified by the manufacturer.' }
+      ],
+      type: 'product'
+    };
+  }
+
+  if (q.includes('物流') || q.includes('快递') || q.includes('shipping') || q.includes('delivery')) {
+    return {
+      answer: `关于物流配送的常见问题：
+
+**配送时效：**
+- 标准配送：3-5 个工作日
+- 加急配送：1-2 个工作日（需额外费用）
+- 偏远地区可能延长 1-2 天
+
+**如何查询物流：**
+1. 登录官网「我的订单」
+2. 点击订单详情查看物流单号
+3. 复制单号到快递公司官网查询
+
+**支持的快递公司：**
+顺丰速运、京东物流、中通快递、圆通速递
+
+> 订单发货后会通过短信和邮件通知物流单号，请留意查收。`,
+      images: [],
+      chunks: [
+        { source: '物流配送说明 v2.0', score: 94, text: '标准配送3-5个工作日，加急1-2个工作日。支持顺丰、京东物流、中通、圆通。' },
+        { source: '订单管理 FAQ', score: 86, text: '登录官网→我的订单→订单详情→查看物流单号。发货后短信通知。' }
+      ],
+      type: 'service'
+    };
+  }
+
+  // Default fallback
+  return {
+    answer: `感谢你的提问！我正在检索相关信息…
+
+根据知识库内容，这个问题可能涉及多个产品类别。为了更准确地帮助你，能否提供以下信息：
+
+1. **产品型号**（通常在产品背面或底部的标签上）
+2. **购买渠道和时间**
+3. **具体故障现象描述**
+
+你也可以尝试：
+- 查阅产品使用手册中的故障排查章节
+- 拨打售后热线 **400-888-0000** 获取人工支持
+- 在 SmartService APP 中提交工单`,
+    images: [],
+    chunks: [
+      { source: '通用售后 FAQ', score: 72, text: '请提供产品型号、购买时间、故障现象以便更精准定位问题。' },
+      { source: '产品分类索引', score: 65, text: '知识库覆盖21类家电、电子产品和健身器材，共收录超过5000个问答对。' }
+    ],
+    type: 'general'
+  };
+}
+
+/* ========================================
+   History
+   ======================================== */
+function loadHistoryItem(idx) {
+  const items = document.querySelectorAll('.chat-history-item');
+  items.forEach(i => i.classList.remove('active'));
+  items[idx].classList.add('active');
+
+  const questions = [
+    '冰箱不制冷怎么办？',
+    'DCB107指示灯闪烁是什么意思？',
+    '如何申请退换货？',
+    'What is the maximum load for the jetski?'
+  ];
+
+  newChat();
+  document.getElementById('chatTitle').textContent = questions[idx];
+  setTimeout(() => sendMessage(questions[idx]), 200);
+}
+
+/* ========================================
+   Settings
+   ======================================== */
+function openSettings() {
+  document.getElementById('settingsModal').classList.add('visible');
+}
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('visible');
+}
+function saveSettings() {
+  closeSettings();
+}
+function updateRangeLabel(id, value, divisor) {
+  const el = document.getElementById(id);
+  if (divisor === 100) {
+    el.textContent = (value / divisor).toFixed(2);
+  } else {
+    el.textContent = value;
+  }
+}
+function selectLang(el, lang) {
+  document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  state.lang = lang;
+}
+
+/* ========================================
+   Lightbox
+   ======================================== */
+function openLightbox(id) {
+  const lb = document.getElementById('lightbox');
+  const svgs = {
+    'temp-control': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#f0f5ff"/><circle cx="160" cy="100" r="60" stroke="#65b5ff" stroke-width="3"/><path d="M160 60v40l25 15" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/><text x="160" y="200" text-anchor="middle" font-size="16" fill="#666" font-family="system-ui">温控器调节示意图</text></svg>',
+    'compressor': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#f5f5f0"/><rect x="60" y="40" width="200" height="150" rx="6" fill="#e0e0d8"/><rect x="85" y="60" width="65" height="110" rx="4" fill="#d3cec6"/><rect x="170" y="60" width="60" height="110" rx="4" fill="#d3cec6"/><text x="160" y="220" text-anchor="middle" font-size="16" fill="#666" font-family="system-ui">压缩机内部结构图</text></svg>',
+    'door-seal': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#f5f0f0"/><path d="M80 60h160v120H80z" stroke="#d3a0a0" stroke-width="3" stroke-dasharray="8 4" fill="none"/><text x="160" y="130" text-anchor="middle" font-size="16" fill="#666" font-family="system-ui">门封条密封检测</text></svg>',
+    'manual-cover': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#f5f0eb"/><rect x="50" y="30" width="220" height="180" rx="6" fill="#e8e2da"/><text x="160" y="100" text-anchor="middle" font-size="20" fill="#666" font-family="system-ui" font-weight="500">SmartService</text><text x="160" y="130" text-anchor="middle" font-size="16" fill="#999" font-family="system-ui">产品使用手册</text><rect x="80" y="155" width="160" height="30" rx="4" fill="#d3cec6"/></svg>',
+    'dcb107': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#f0fff0"/><rect x="80" y="40" width="160" height="150" rx="12" fill="#e0f0e0"/><circle cx="125" cy="100" r="18" fill="#22c55e"/><circle cx="195" cy="100" r="18" fill="#ef4444"/><circle cx="160" cy="140" r="18" fill="#eab308"/><text x="160" y="215" text-anchor="middle" font-size="16" fill="#666" font-family="system-ui">DCB107 指示灯面板</text></svg>',
+    'jetski': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#e6f4ff"/><path d="M40 140 Q100 70 160 100 Q220 130 280 80" stroke="#3b82f6" stroke-width="3" fill="none"/><ellipse cx="160" cy="145" rx="90" ry="30" fill="#d0e4ff" stroke="#65b5ff" stroke-width="2"/><text x="160" y="210" text-anchor="middle" font-size="16" fill="#666" font-family="system-ui">Jetski Maximum Load</text></svg>',
+    'return-flow': '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#e6ffe6"/><path d="M40 160l50-50 40 30 50-70 40 20 60-40" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="160" y="210" text-anchor="middle" font-size="16" fill="#666" font-family="system-ui">退换货申请流程</text></svg>'
+  };
+  document.getElementById('lightboxSvg').outerHTML = svgs[id] || '<svg viewBox="0 0 320 240" fill="none"><rect width="320" height="240" rx="8" fill="#f5f0eb"/><text x="160" y="120" text-anchor="middle" font-size="14" fill="#999" font-family="system-ui">暂无图片</text></svg>';
+  lb.classList.add('visible');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('visible');
+}
+
+/* ========================================
+   Auto-resize textarea
+   ======================================== */
+document.getElementById('chatInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+
+/* ========================================
+   Click outside modal to close
+   ======================================== */
+document.getElementById('settingsModal').addEventListener('click', function(e) {
+  if (e.target === this) closeSettings();
+});
+</script>
+</body>
+</html>

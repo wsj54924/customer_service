@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment secrets
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Data & models (large files)
+data/vector_store/
+data/chunks/
+data/index/
+data/processed/
+
+# HuggingFace cache
+.cache/
+
+# Logs
+*.log
+logs/
+
+# Submissions (generated)
+submission*.csv
+!submission_example.csv
+
+# Claude
+.claude/
