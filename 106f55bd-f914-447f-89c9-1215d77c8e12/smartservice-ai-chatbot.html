@@ -1716,10 +1716,18 @@ function sendMessage(text) {
     },
     body: JSON.stringify({ question: msg, session_id: state.sessionId })
   })
-  .then(r => r.json())
+  .then(r => {
+    if (!r.ok) {
+      return r.text().then(t => { throw new Error('HTTP ' + r.status + ': ' + t.substring(0, 200)); });
+    }
+    return r.json();
+  })
   .then(data => {
     showTyping(false);
     const resp = data.data || data;
+    if (!resp || resp.answer === undefined) {
+      throw new Error(data.msg || data.detail || JSON.stringify(data).substring(0, 200));
+    }
     // Update session ID from server
     if (resp.session_id) state.sessionId = resp.session_id;
     document.getElementById('sessionId').textContent = state.sessionId;
@@ -1814,6 +1822,7 @@ function showTyping(show) {
 }
 
 function renderMarkdown(text) {
+  if (!text) return '<p>(empty response)</p>';
   let html = text
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/```\w*\n?([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
