@@ -1,0 +1,30 @@
+{
+  "builds": [
+    {
+      "src": "src/app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "src/app.py"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "src/app.py"
+    },
+    {
+      "src": "/health",
+      "dest": "src/app.py"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "src/app.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/app.py"
+    }
+  ]
+}
