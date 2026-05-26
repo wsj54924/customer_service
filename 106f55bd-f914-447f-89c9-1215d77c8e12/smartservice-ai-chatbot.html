@@ -1,10 +1,10 @@
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartService AI — 智能客服</title>
+<title>SmartService AI — Intelligent Customer Service</title>
 <style>
 /* ========================================
    Intercom Design System Tokens
@@ -1219,24 +1219,24 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       SmartService AI
     </div>
     <div class="landing-nav-links">
-      <a href="#features">功能</a>
-      <a href="#tech">技术栈</a>
-      <a href="#architecture">架构</a>
-      <a href="#" class="btn-primary" onclick="switchToChat(); return false;">开始使用</a>
+      <a href="#features">Features</a>
+      <a href="#tech">Tech Stack</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#" class="btn-primary" onclick="switchToChat(); return false;">Get Started</a>
     </div>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
     <div class="hero-eyebrow">RAG-Powered Customer Service</div>
-    <h1>AI 智能客服<br><span class="hero-gradient">秒级响应，精准解答</span></h1>
-    <p class="hero-deck">基于 21 份产品手册构建的知识库，支持中英文、图文混合回复，覆盖家电、电子、健身器材全品类售后场景。</p>
+    <h1>AI Customer Service<br><span class="hero-gradient">Instant Answers, Zero Wait</span></h1>
+    <p class="hero-deck">A knowledge base built from 21 product manuals with text and image support, covering electronics, appliances, fitness equipment, and full after-sales scenarios.</p>
     <div class="hero-actions">
       <a href="#" class="btn-primary" onclick="switchToChat(); return false;">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 10.5c0 .83-.67 1.5-1.5 1.5H5l-3 3V3.5C2 2.67 2.67 2 3.5 2h9c.83 0 1.5.67 1.5 1.5v5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        开始对话
+        Start Chat
       </a>
-      <a href="#features" class="btn-outline">了解更多</a>
+      <a href="#features" class="btn-outline">Learn More</a>
     </div>
   </section>
 
@@ -1246,28 +1246,28 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       <div class="feature-icon rag">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h10M4 18h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <h3>RAG 知识库</h3>
-      <p>基于 21 份产品手册构建向量知识库，FAISS 检索 + BGE Reranker 重排，确保每次回答都有据可依。</p>
+      <h3>RAG Knowledge Base</h3>
+      <p>Vector knowledge base built from 21 product manuals with FAISS retrieval and BGE Reranker — every answer is grounded in real documentation.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon multi">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M9 3v18" stroke="currentColor" stroke-width="2"/></svg>
       </div>
-      <h3>多模态理解</h3>
-      <p>支持文字 + 图片混合输入，能识别产品故障照片并匹配对应的维修指南和说明图片。</p>
+      <h3>Multimodal Understanding</h3>
+      <p>Supports text and image input — recognizes product fault photos and matches them with repair guides and manual illustrations.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon dialogue">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
-      <h3>多轮对话</h3>
-      <p>智能维护对话上下文，支持追问、澄清和话题切换，像真人客服一样流畅交流。</p>
+      <h3>Multi-turn Dialogue</h3>
+      <p>Maintains conversation context for follow-ups, clarifications, and topic switches — as smooth as talking to a real agent.</p>
     </div>
   </section>
 
   <!-- Tech Stack -->
   <section class="tech-section" id="tech">
-    <h2>技术栈</h2>
+    <h2>TECH STACK</h2>
     <div class="tech-badges">
       <span class="tech-badge">FastAPI</span>
       <span class="tech-badge">FAISS</span>
@@ -1281,10 +1281,10 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
   <!-- Architecture -->
   <section class="architecture" id="architecture">
-    <h2>系统架构</h2>
+    <h2>System Architecture</h2>
     <div class="arch-diagram">
       <div class="arch-box">
-        <div class="label">前端</div>
+        <div class="label">FRONTEND</div>
         <div class="name">Chat UI</div>
       </div>
       <div class="arch-arrow">→</div>
@@ -1294,12 +1294,12 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-box">
-        <div class="label">检索</div>
+        <div class="label">RETRIEVAL</div>
         <div class="name">FAISS + Reranker</div>
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-box">
-        <div class="label">生成</div>
+        <div class="label">GENERATION</div>
         <div class="name">LLM</div>
       </div>
     </div>
@@ -1307,28 +1307,28 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
   <!-- Demo Embed -->
   <section class="demo-embed" id="demo">
-    <h2>在线体验</h2>
-    <p>点击"开始对话"，与 SmartService AI 实时交流</p>
+    <h2>Try It Live</h2>
+    <p>Click "Start Chat" to talk with SmartService AI in real time</p>
     <div class="demo-widget">
       <div class="demo-widget-header">
         <div class="dot"></div>
-        <span>SmartService AI · 在线</span>
+        <span>SmartService AI · Online</span>
       </div>
       <div class="demo-widget-body">
-        <div class="demo-bubble ai">你好！我是 SmartService AI 智能客服，可以帮你解答产品使用、退换货、物流等问题。请问有什么可以帮到你？</div>
-        <div class="demo-bubble user">冰箱不制冷怎么办？</div>
-        <div class="demo-bubble ai">冰箱不制冷可能有以下几个原因：1. 温控器设置不当 2. 冷凝器积尘 3. 门封条老化。建议先检查温控器是否在正确档位……</div>
+        <div class="demo-bubble ai">Hi! I'm SmartService AI. I can help with product usage, returns, shipping, and more. How can I assist you?</div>
+        <div class="demo-bubble user">My refrigerator isn't cooling. What should I do?</div>
+        <div class="demo-bubble ai">A refrigerator not cooling could be caused by: 1. Incorrect thermostat setting 2. Dirty condenser coils 3. Worn door seal. Check the thermostat dial first...</div>
       </div>
       <div class="demo-widget-input">
-        <input type="text" placeholder="输入你的问题…" onclick="switchToChat()">
-        <button onclick="switchToChat()">发送</button>
+        <input type="text" placeholder="Type your question…" onclick="switchToChat()">
+        <button onclick="switchToChat()">Send</button>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="landing-footer">
-    SmartService AI — 基于 RAG 的智能客服系统
+    SmartService AI — RAG-Powered Intelligent Customer Service
   </footer>
 </div>
 
@@ -1343,46 +1343,46 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
         <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#ff5600"/><path d="M8 16c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#fff"/></svg>
         SmartService AI
       </div>
-      <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="收起侧边栏">
+      <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="Collapse sidebar">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
     <button class="new-chat-btn" onclick="newChat()">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      新对话
+      New Chat
     </button>
     <div class="chat-history" id="chatHistory">
       <div class="chat-history-group">
-        <div class="chat-history-group-title">今天</div>
+        <div class="chat-history-group-title">TODAY</div>
         <div class="chat-history-item" onclick="loadHistoryItem(0)">
-          <div class="chat-history-item-title">冰箱不制冷怎么办？</div>
+          <div class="chat-history-item-title">Refrigerator not cooling</div>
           <div class="chat-history-item-time">14:32</div>
         </div>
         <div class="chat-history-item" onclick="loadHistoryItem(1)">
-          <div class="chat-history-item-title">DCB107 指示灯含义</div>
+          <div class="chat-history-item-title">DCB107 indicator lights</div>
           <div class="chat-history-item-time">13:15</div>
         </div>
       </div>
       <div class="chat-history-group">
-        <div class="chat-history-group-title">昨天</div>
+        <div class="chat-history-group-title">YESTERDAY</div>
         <div class="chat-history-item" onclick="loadHistoryItem(2)">
-          <div class="chat-history-item-title">如何申请退换货？</div>
-          <div class="chat-history-item-time">昨天 16:40</div>
+          <div class="chat-history-item-title">How to request a return?</div>
+          <div class="chat-history-item-time">Yesterday 16:40</div>
         </div>
       </div>
       <div class="chat-history-group">
-        <div class="chat-history-group-title">更早</div>
+        <div class="chat-history-group-title">EARLIER</div>
         <div class="chat-history-item" onclick="loadHistoryItem(3)">
-          <div class="chat-history-item-title">jetski 最大载重</div>
-          <div class="chat-history-item-time">5月18日</div>
+          <div class="chat-history-item-title">Jetski max load capacity</div>
+          <div class="chat-history-item-time">May 18</div>
         </div>
       </div>
     </div>
     <div class="sidebar-footer">
-      <button class="sidebar-footer-btn" onclick="openSettings()" title="设置">
+      <button class="sidebar-footer-btn" onclick="openSettings()" title="Settings">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 11a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.5"/><path d="M15.42 11.22a1.3 1.3 0 00.26 1.43l.05.06a1.58 1.58 0 11-2.23 2.23l-.06-.05a1.3 1.3 0 00-1.43-.26 1.3 1.3 0 00-.77 1.19v.17a1.58 1.58 0 01-3.16 0v-.09a1.3 1.3 0 00-.78-1.17 1.3 1.3 0 00-1.43.26l-.06.05a1.58 1.58 0 11-2.23-2.23l.05-.06a1.3 1.3 0 00.26-1.43 1.3 1.3 0 00-1.19-.77h-.17a1.58 1.58 0 010-3.16h.09a1.3 1.3 0 001.17-.78 1.3 1.3 0 00-.26-1.43l-.05-.06a1.58 1.58 0 112.23-2.23l.06.05a1.3 1.3 0 001.43.26h.04A1.3 1.3 0 008.08 2.6v-.17a1.58 1.58 0 013.16 0v.09a1.3 1.3 0 00.78 1.17 1.3 1.3 0 001.43-.26l.06-.05a1.58 1.58 0 112.23 2.23l-.05.06a1.3 1.3 0 00-.26 1.43v.04a1.3 1.3 0 001.19.77h.17a1.58 1.58 0 010 3.16h-.09a1.3 1.3 0 00-1.17.78z" stroke="currentColor" stroke-width="1.5"/></svg>
       </button>
-      <button class="sidebar-footer-btn" onclick="switchToLanding()" title="返回首页">
+      <button class="sidebar-footer-btn" onclick="switchToLanding()" title="Back to Home">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l6-6 6 6M5 7.5V15a1 1 0 001 1h6a1 1 0 001-1V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
@@ -1393,13 +1393,13 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
     <!-- Header -->
     <header class="chat-header">
       <div class="chat-header-left">
-        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="展开侧边栏" id="sidebarToggle">
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Expand sidebar" id="sidebarToggle">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
-        <span class="chat-title" id="chatTitle">新对话</span>
+        <span class="chat-title" id="chatTitle">New Chat</span>
       </div>
       <div class="chat-header-right">
-        <button class="chat-header-btn" id="panelToggle" onclick="toggleRightPanel()" title="知识面板">
+        <button class="chat-header-btn" id="panelToggle" onclick="toggleRightPanel()" title="Knowledge Panel">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 2v14" stroke="currentColor" stroke-width="1.5"/></svg>
         </button>
       </div>
@@ -1407,20 +1407,20 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
     <!-- Welcome Screen -->
     <div class="welcome-screen" id="welcomeScreen">
-      <h2>你好，有什么可以帮你？</h2>
-      <p>我可以回答产品使用、退换货、物流等各类问题</p>
+      <h2>Hello, how can I help you?</h2>
+      <p>I can answer questions about products, returns, shipping, and more</p>
       <div class="suggestion-cards">
-        <div class="suggestion-card" onclick="askSuggestion('冰箱不制冷怎么办？')">
+        <div class="suggestion-card" onclick="askSuggestion('My refrigerator isn\\'t cooling')">
           <div class="card-icon">❄️</div>
-          冰箱不制冷怎么办？
+          My refrigerator isn't cooling
         </div>
-        <div class="suggestion-card" onclick="askSuggestion('如何申请退换货？')">
+        <div class="suggestion-card" onclick="askSuggestion('How do I return a product?')">
           <div class="card-icon">📦</div>
-          如何申请退换货？
+          How do I return a product?
         </div>
-        <div class="suggestion-card" onclick="askSuggestion('DCB107指示灯闪烁是什么意思？')">
+        <div class="suggestion-card" onclick="askSuggestion('What do the DCB107 blinking lights mean?')">
           <div class="card-icon">💡</div>
-          DCB107指示灯闪烁是什么意思？
+          What do the DCB107 blinking lights mean?
         </div>
         <div class="suggestion-card" onclick="askSuggestion('What is the maximum load for the jetski?')">
           <div class="card-icon">🚤</div>
@@ -1441,7 +1441,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
     <!-- Input Area -->
     <div class="chat-input-area">
       <div class="chat-input-wrapper">
-        <textarea class="chat-input" id="chatInput" placeholder="输入你的问题…" rows="1" onkeydown="handleInputKey(event)"></textarea>
+        <textarea class="chat-input" id="chatInput" placeholder="Type your question…" rows="1" onkeydown="handleInputKey(event)"></textarea>
         <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -1452,37 +1452,37 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   <!-- Right Panel -->
   <aside class="right-panel collapsed" id="rightPanel">
     <div class="right-panel-tabs">
-      <button class="right-panel-tab active" onclick="switchRightTab(this, 'knowledge')">知识库</button>
-      <button class="right-panel-tab" onclick="switchRightTab(this, 'images')">图片</button>
-      <button class="right-panel-tab" onclick="switchRightTab(this, 'info')">会话信息</button>
+      <button class="right-panel-tab active" onclick="switchRightTab(this, 'knowledge')">Knowledge</button>
+      <button class="right-panel-tab" onclick="switchRightTab(this, 'images')">Images</button>
+      <button class="right-panel-tab" onclick="switchRightTab(this, 'info')">Session</button>
     </div>
     <div class="right-panel-content" id="rightPanelContent">
       <div id="tab-knowledge">
         <div class="panel-section">
-          <div class="panel-section-title">检索到的文档片段</div>
+          <div class="panel-section-title">RETRIEVED DOCUMENT CHUNKS</div>
           <div id="docChunks">
             <div class="doc-chunk">
               <div class="doc-chunk-header">
-                <span class="doc-chunk-source">冰箱使用手册 v3.2</span>
+                <span class="doc-chunk-source">Refrigerator Manual v3.2</span>
                 <span class="doc-chunk-score">96%</span>
               </div>
-              <div>冰箱不制冷的常见原因包括：温控器设置不正确、冷凝器积尘、门封条老化漏冷、制冷剂不足等。建议用户先检查温控器档位…</div>
+              <div>Common causes of cooling failure: incorrect thermostat setting, dirty condenser, worn door seal, low refrigerant. Check thermostat dial first...</div>
               <div class="score-bar"><div class="score-bar-fill" style="width:96%"></div></div>
             </div>
             <div class="doc-chunk">
               <div class="doc-chunk-header">
-                <span class="doc-chunk-source">冰箱故障排查指南</span>
+                <span class="doc-chunk-source">Refrigerator Troubleshooting Guide</span>
                 <span class="doc-chunk-score">91%</span>
               </div>
-              <div>Step 1: 确认电源正常接入。Step 2: 检查温控器旋钮位置。Step 3: 检查压缩机是否运转…</div>
+              <div>Step 1: Verify power connection. Step 2: Check thermostat knob position. Step 3: Check if compressor is running...</div>
               <div class="score-bar"><div class="score-bar-fill" style="width:91%"></div></div>
             </div>
             <div class="doc-chunk">
               <div class="doc-chunk-header">
-                <span class="doc-chunk-source">售后 FAQ</span>
+                <span class="doc-chunk-source">Support FAQ</span>
                 <span class="doc-chunk-score">84%</span>
               </div>
-              <div>若自行排查无效，请联系售后服务中心，提供产品序列号和故障描述，工程师将在24小时内响应。</div>
+              <div>If troubleshooting doesn't resolve the issue, contact support with your serial number and a description. An engineer will respond within 24 hours.</div>
               <div class="score-bar"><div class="score-bar-fill" style="width:84%"></div></div>
             </div>
           </div>
@@ -1490,44 +1490,44 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       </div>
       <div id="tab-images" class="hidden">
         <div class="panel-section">
-          <div class="panel-section-title">相关产品图片</div>
+          <div class="panel-section-title">RELATED PRODUCT IMAGES</div>
           <div class="images-grid">
             <div class="img-cell" onclick="openLightbox('manual-cover')">
-              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f0eb"/><rect x="20" y="15" width="120" height="90" rx="4" fill="#e8e2da"/><text x="80" y="50" text-anchor="middle" font-size="11" fill="#999" font-family="system-ui">产品手册封面</text><rect x="40" y="60" width="80" height="30" rx="3" fill="#d3cec6"/></svg>
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f0eb"/><rect x="20" y="15" width="120" height="90" rx="4" fill="#e8e2da"/><text x="80" y="50" text-anchor="middle" font-size="11" fill="#999" font-family="system-ui">Manual Cover</text><rect x="40" y="60" width="80" height="30" rx="3" fill="#d3cec6"/></svg>
             </div>
             <div class="img-cell" onclick="openLightbox('temp-control')">
-              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f0f5ff"/><rect x="30" y="10" width="100" height="100" rx="4" fill="#dde8ff"/><circle cx="80" cy="55" r="25" stroke="#99b3ff" stroke-width="2"/><path d="M80 40v15l10 7" stroke="#65b5ff" stroke-width="2" stroke-linecap="round"/><text x="80" y="95" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">温控器示意图</text></svg>
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f0f5ff"/><rect x="30" y="10" width="100" height="100" rx="4" fill="#dde8ff"/><circle cx="80" cy="55" r="25" stroke="#99b3ff" stroke-width="2"/><path d="M80 40v15l10 7" stroke="#65b5ff" stroke-width="2" stroke-linecap="round"/><text x="80" y="95" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">Thermostat Diagram</text></svg>
             </div>
             <div class="img-cell" onclick="openLightbox('compressor')">
-              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f5f0"/><rect x="25" y="20" width="110" height="80" rx="4" fill="#e8e8e0"/><rect x="45" y="35" width="35" height="50" rx="3" fill="#d3cec6"/><rect x="90" y="35" width="30" height="50" rx="3" fill="#d3cec6"/><text x="80" y="105" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">压缩机结构图</text></svg>
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f5f0"/><rect x="25" y="20" width="110" height="80" rx="4" fill="#e8e8e0"/><rect x="45" y="35" width="35" height="50" rx="3" fill="#d3cec6"/><rect x="90" y="35" width="30" height="50" rx="3" fill="#d3cec6"/><text x="80" y="105" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">Compressor Structure</text></svg>
             </div>
             <div class="img-cell" onclick="openLightbox('door-seal')">
-              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f0f0"/><rect x="30" y="15" width="100" height="90" rx="4" fill="#f0e0e0"/><path d="M50 40h60v40H50z" stroke="#d3a0a0" stroke-width="2" stroke-dasharray="4 2"/><text x="80" y="65" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">门封条示意图</text></svg>
+              <svg viewBox="0 0 160 120" fill="none"><rect width="160" height="120" fill="#f5f0f0"/><rect x="30" y="15" width="100" height="90" rx="4" fill="#f0e0e0"/><path d="M50 40h60v40H50z" stroke="#d3a0a0" stroke-width="2" stroke-dasharray="4 2"/><text x="80" y="65" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui">Door Seal Diagram</text></svg>
             </div>
           </div>
         </div>
       </div>
       <div id="tab-info" class="hidden">
         <div class="panel-section">
-          <div class="panel-section-title">会话信息</div>
+          <div class="panel-section-title">SESSION INFO</div>
           <div class="info-row">
-            <span class="info-label">会话 ID</span>
+            <span class="info-label">Session ID</span>
             <span class="info-value" id="sessionId">sess_8a3f2c</span>
           </div>
           <div class="info-row">
-            <span class="info-label">问题类型</span>
-            <span class="info-value"><span class="type-badge product">产品咨询</span></span>
+            <span class="info-label">Question Type</span>
+            <span class="info-value"><span class="type-badge product">Product Inquiry</span></span>
           </div>
           <div class="info-row">
-            <span class="info-label">响应时间</span>
+            <span class="info-label">Response Time</span>
             <span class="info-value" id="responseTime">1.2s</span>
           </div>
           <div class="info-row">
-            <span class="info-label">语言</span>
-            <span class="info-value">中文</span>
+            <span class="info-label">Language</span>
+            <span class="info-value">English</span>
           </div>
           <div class="info-row">
-            <span class="info-label">消息数</span>
+            <span class="info-label">Messages</span>
             <span class="info-value" id="msgCount">0</span>
           </div>
         </div>
@@ -1542,7 +1542,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 <div class="modal-overlay" id="settingsModal">
   <div class="modal">
     <div class="modal-header">
-      <h2>设置</h2>
+      <h2>Settings</h2>
       <button class="modal-close" onclick="closeSettings()">✕</button>
     </div>
     <div class="modal-body">
@@ -1555,7 +1555,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
         <input class="form-input" type="password" id="bearerToken" value="sk_customer_20260518">
       </div>
       <div class="form-group">
-        <label class="form-label">模型选择</label>
+        <label class="form-label">Model</label>
         <select class="form-select" id="modelSelect">
           <option value="gpt-4o">GPT-4o</option>
           <option value="gpt-4o-mini">GPT-4o Mini</option>
@@ -1566,7 +1566,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       </div>
       <div class="form-group">
         <label class="form-label">Temperature</label>
-        <div class="form-sublabel">值越高回答越随机，越低越确定</div>
+        <div class="form-sublabel">Higher values produce more random responses</div>
         <div class="range-wrapper">
           <input type="range" id="temperature" min="0" max="100" value="30" oninput="updateRangeLabel('tempLabel', this.value, 100)">
           <span class="range-value" id="tempLabel">0.30</span>
@@ -1580,17 +1580,17 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">语言偏好</label>
+        <label class="form-label">Language</label>
         <div class="lang-options">
-          <div class="lang-option active" onclick="selectLang(this, 'zh')">中文</div>
+          <div class="lang-option active" onclick="selectLang(this, 'zh')">Chinese</div>
           <div class="lang-option" onclick="selectLang(this, 'en')">English</div>
-          <div class="lang-option" onclick="selectLang(this, 'auto')">自动检测</div>
+          <div class="lang-option" onclick="selectLang(this, 'auto')">Auto-detect</div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-outline" onclick="closeSettings()" style="padding:8px 20px;font-size:14px;">取消</button>
-      <button class="btn-primary" onclick="saveSettings()">保存设置</button>
+      <button class="btn-outline" onclick="closeSettings()" style="padding:8px 20px;font-size:14px;">Cancel</button>
+      <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
     </div>
   </div>
 </div>
@@ -1599,7 +1599,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <svg viewBox="0 0 320 240" fill="none" id="lightboxSvg">
     <rect width="320" height="240" rx="8" fill="#f5f0eb"/>
-    <text x="160" y="120" text-anchor="middle" font-size="14" fill="#999" font-family="system-ui">加载中...</text>
+    <text x="160" y="120" text-anchor="middle" font-size="14" fill="#999" font-family="system-ui">Loading...</text>
   </svg>
 </div>
 
@@ -1668,7 +1668,7 @@ function newChat() {
   state.sessionId = 'sess_' + Math.random().toString(36).slice(2, 8);
   document.getElementById('sessionId').textContent = state.sessionId;
   document.getElementById('msgCount').textContent = '0';
-  document.getElementById('chatTitle').textContent = '新对话';
+  document.getElementById('chatTitle').textContent = 'New Chat';
   document.getElementById('welcomeScreen').classList.remove('hidden');
   document.getElementById('messagesArea').classList.add('hidden');
   document.getElementById('messagesArea').innerHTML = '<div class="typing-indicator" id="typingIndicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
@@ -1735,7 +1735,7 @@ function sendMessage(text) {
     // Map images to frontend format
     const images = (resp.images || []).map(img => ({
       id: img.id,
-      svg: '<img src="/images/' + img.id + '" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" onerror="this.parentNode.innerHTML=\'<div style=\\\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:#999;font-size:11px;\\\'>暂无预览</div>\'">'
+      svg: '<img src="/images/' + img.id + '" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" onerror="this.parentNode.innerHTML=\'<div style=\\\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:#999;font-size:11px;\\\'>No preview available</div>\'">'
     }));
 
     appendMessage('ai', resp.answer, images);
@@ -1749,7 +1749,7 @@ function sendMessage(text) {
   })
   .catch(err => {
     showTyping(false);
-    appendMessage('ai', '抱歉，请求失败：' + err.message + '\n\n请检查 API 地址和 Token 是否正确，或在设置中修改。');
+    appendMessage('ai', 'Sorry, request failed: ' + err.message + '\n\nPlease check the API endpoint and token, or update them in Settings.');
     state.sending = false;
     input.focus();
   });
@@ -1764,7 +1764,7 @@ function appendMessage(role, text, images) {
 
   const avatar = document.createElement('div');
   avatar.className = 'message-avatar ' + role;
-  avatar.textContent = role === 'ai' ? 'AI' : '你';
+  avatar.textContent = role === 'ai' ? 'AI' : 'You';
 
   const content = document.createElement('div');
   content.className = 'message-content';
@@ -1792,13 +1792,13 @@ function appendMessage(role, text, images) {
     const actions = document.createElement('div');
     actions.className = 'message-actions';
     actions.innerHTML = `
-      <button class="message-action-btn" onclick="copyMessage(this)" title="复制">
+      <button class="message-action-btn" onclick="copyMessage(this)" title="Copy">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M10 4V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5.5A1.5 1.5 0 003 10h1" stroke="currentColor" stroke-width="1.2"/></svg>
       </button>
-      <button class="message-action-btn" onclick="feedback(this, 'up')" title="有帮助">
+      <button class="message-action-btn" onclick="feedback(this, 'up')" title="Helpful">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 6.5V12h1.5l.5-3h2l1-4H5.5L4 6.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
       </button>
-      <button class="message-action-btn" onclick="feedback(this, 'down')" title="无帮助">
+      <button class="message-action-btn" onclick="feedback(this, 'down')" title="Not helpful">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10 7.5V2H8.5L8 5h-2L5 9h5.5L10 7.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
       </button>
     `;
@@ -1883,8 +1883,8 @@ function updateRightPanel(response) {
   if (response.type) {
     const badge = document.querySelector('.type-badge');
     badge.className = 'type-badge ' + response.type;
-    const typeMap = { product: '产品咨询', service: '售后服务', mixed: '混合问题', general: '一般问题' };
-    badge.textContent = typeMap[response.type] || '一般问题';
+    const typeMap = { product: 'Product Inquiry', service: 'After-sales Service', mixed: 'Mixed', general: 'General' };
+    badge.textContent = typeMap[response.type] || 'General';
   }
   if (response.images && response.images.length > 0) {
     const grid = document.querySelector('#tab-images .images-grid');
@@ -1902,91 +1902,91 @@ function updateRightPanel(response) {
 function getDemoResponse(question) {
   const q = question.toLowerCase();
 
-  if (q.includes('冰箱') && (q.includes('不制冷') || q.includes('不冷'))) {
+  if ((q.includes('冰箱') || q.includes('refrigerator') || q.includes('fridge')) && (q.includes('不制冷') || q.includes('不冷') || q.includes('cooling') || q.includes('not cool'))) {
     return {
-      answer: `冰箱不制冷可能由以下几个原因造成：
+      answer: `Your refrigerator may not be cooling for the following reasons:
 
-**1. 温控器设置不当**
-请检查温控器旋钮是否在正确档位（通常建议设在 3-4 档）。如果旋钮松动或损坏，需要更换温控器。
+**1. Incorrect Thermostat Setting**
+Check if the thermostat dial is set to the correct level (typically 3-4). If the dial is loose or damaged, the thermostat may need replacement.
 
-**2. 冷凝器积尘**
-冰箱背部或底部的冷凝器如果积满灰尘，会影响散热效率。建议每 6 个月清洁一次。
+**2. Dirty Condenser Coils**
+Dust buildup on the condenser (back or bottom of the fridge) reduces cooling efficiency. Clean every 6 months.
 
-**3. 门封条老化**
-检查门封条是否有裂缝或变形。可以用一张纸夹在门缝中测试——如果能轻松抽出，说明密封不良。
+**3. Worn Door Seal**
+Check for cracks or deformation. Test by closing a piece of paper in the door — if it slides out easily, the seal needs replacement.
 
-**4. 制冷剂泄漏**
-如果以上排查都正常，可能是制冷剂不足。这种情况需要联系专业维修人员处理。
+**4. Refrigerant Leak**
+If none of the above resolves the issue, the refrigerant may be low. Contact a certified technician.
 
-> 如自行排查无效，请拨打售后热线 400-888-0000，提供产品序列号，工程师将在 24 小时内响应。`,
+> If self-troubleshooting doesn't help, call our support hotline at 400-888-0000 with your product serial number. An engineer will respond within 24 hours.`,
       images: [
-        { id: 'temp-control', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f0f5ff"/><circle cx="60" cy="40" r="20" stroke="#65b5ff" stroke-width="1.5"/><path d="M60 28v12l8 5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/><text x="60" y="75" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">温控器</text></svg>' },
-        { id: 'compressor', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f5f5f0"/><rect x="25" y="15" width="70" height="60" rx="3" fill="#e0e0d8"/><rect x="35" y="25" width="25" height="40" rx="2" fill="#d3cec6"/><rect x="68" y="25" width="20" height="40" rx="2" fill="#d3cec6"/><text x="60" y="85" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">压缩机</text></svg>' }
+        { id: 'temp-control', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f0f5ff"/><circle cx="60" cy="40" r="20" stroke="#65b5ff" stroke-width="1.5"/><path d="M60 28v12l8 5" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/><text x="60" y="75" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">Thermostat</text></svg>' },
+        { id: 'compressor', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f5f5f0"/><rect x="25" y="15" width="70" height="60" rx="3" fill="#e0e0d8"/><rect x="35" y="25" width="25" height="40" rx="2" fill="#d3cec6"/><rect x="68" y="25" width="20" height="40" rx="2" fill="#d3cec6"/><text x="60" y="85" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">Compressor</text></svg>' }
       ],
       chunks: [
-        { source: '冰箱使用手册 v3.2', score: 96, text: '冰箱不制冷的常见原因包括：温控器设置不正确、冷凝器积尘、门封条老化漏冷、制冷剂不足等。' },
-        { source: '冰箱故障排查指南', score: 91, text: 'Step 1: 确认电源正常接入。Step 2: 检查温控器旋钮位置。Step 3: 检查压缩机是否运转。' },
-        { source: '售后 FAQ', score: 84, text: '若自行排查无效，请联系售后服务中心，提供产品序列号，工程师将在24小时内响应。' }
+        { source: 'Refrigerator Manual v3.2', score: 96, text: 'Common causes of cooling failure: incorrect thermostat setting, dirty condenser, worn door seal, low refrigerant.' },
+        { source: 'Refrigerator Troubleshooting Guide', score: 91, text: 'Step 1: Verify power connection. Step 2: Check thermostat knob position. Step 3: Check if compressor is running.' },
+        { source: 'Support FAQ', score: 84, text: 'If troubleshooting doesn\'t resolve the issue, contact support with your serial number. An engineer will respond within 24 hours.' }
       ],
       type: 'product'
     };
   }
 
-  if (q.includes('退换货') || q.includes('退货') || q.includes('换货') || q.includes('return')) {
+  if (q.includes('退换货') || q.includes('退货') || q.includes('换货') || q.includes('return') || q.includes('exchange') || q.includes('refund')) {
     return {
-      answer: `申请退换货的流程如下：
+      answer: `Here's how to request a return or exchange:
 
-**退换货条件：**
-- 自签收之日起 **7 天内**可申请无理由退货
-- **15 天内**出现性能故障可换同款商品
-- **1 年保修期**内非人为损坏免费维修
+**Eligibility:**
+- **No-questions-asked return** within 7 days of delivery
+- **Exchange for same model** within 15 days for performance defects
+- **Free repair** within 1-year warranty for non-user-caused damage
 
-**申请步骤：**
-1. 登录 SmartService 官网或 APP
-2. 进入「我的订单」→ 选择对应订单
-3. 点击「申请售后」→ 选择退货/换货/维修
-4. 填写问题描述并上传故障照片
-5. 提交后等待审核（通常 1-2 个工作日）
+**Steps:**
+1. Log in to SmartService website or app
+2. Go to "My Orders" and select the relevant order
+3. Click "Request Support" → choose Return / Exchange / Repair
+4. Describe the issue and upload photos of the defect
+5. Submit and wait for review (typically 1-2 business days)
 
-**注意事项：**
-- 请保留原包装和配件
-- 退货运费：质量问题由商家承担，非质量问题由买家承担
-- 审核通过后，退款将在 3-5 个工作日内到账
+**Notes:**
+- Please keep original packaging and accessories
+- Shipping: covered by seller for quality issues, by buyer for other reasons
+- Refunds are processed within 3-5 business days after approval
 
-如有疑问可随时联系我，或拨打客服热线 400-888-0000。`,
+Feel free to ask me anything, or call our hotline at 400-888-0000.`,
       images: [
-        { id: 'return-flow', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#e6ffe6"/><path d="M20 45h20l10-15 10 30 10-25 10 10h20" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="80" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">退换货流程</text></svg>' }
+        { id: 'return-flow', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#e6ffe6"/><path d="M20 45h20l10-15 10 30 10-25 10 10h20" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="80" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">Return Process</text></svg>' }
       ],
       chunks: [
-        { source: '退换货政策 v2.1', score: 98, text: '自签收之日起7天内可申请无理由退货，15天内出现性能故障可换同款商品。' },
-        { source: '售后操作手册', score: 93, text: '登录官网→我的订单→申请售后→选择类型→填写描述→上传照片→提交。' },
-        { source: '物流与退款说明', score: 87, text: '退款将在3-5个工作日内到账。质量问题运费由商家承担。' }
+        { source: 'Return Policy v2.1', score: 98, text: 'No-questions-asked return within 7 days of delivery. Exchange for same model within 15 days for performance defects.' },
+        { source: 'Support Operations Manual', score: 93, text: 'Log in → My Orders → Request Support → Select type → Describe issue → Upload photos → Submit.' },
+        { source: 'Shipping & Refund Guide', score: 87, text: 'Refunds processed within 3-5 business days. Seller covers shipping for quality issues.' }
       ],
       type: 'service'
     };
   }
 
-  if (q.includes('dcb107') || q.includes('指示灯') || q.includes('闪烁')) {
+  if (q.includes('dcb107') || q.includes('指示灯') || q.includes('闪烁') || q.includes('indicator') || q.includes('blinking')) {
     return {
-      answer: `**DCB107 指示灯状态说明：**
+      answer: `**DCB107 Indicator Light Guide:**
 
-DCB107 是一款多用途充电器，指示灯的不同状态代表不同含义：
+The DCB107 is a multi-purpose charger. Here's what each indicator light status means:
 
-- **绿灯常亮** — 充电完成，电池已满
-- **绿灯闪烁** — 正在充电中，电量低于 80%
-- **红灯常亮** — 充电异常，请检查电池连接
-- **红灯闪烁** — 温度过高保护，暂停使用等待冷却
-- **黄灯常亮** — 电池检测中，请稍候
-- **灯不亮** — 检查电源连接或适配器是否正常
+- **Solid Green** — Fully charged
+- **Flashing Green** — Charging in progress, battery below 80%
+- **Solid Red** — Charging error, check battery connection
+- **Flashing Red** — Over-temperature protection, let the unit cool down
+- **Solid Yellow** — Battery detection in progress, please wait
+- **No Light** — Check power connection or adapter
 
-> 如果红灯持续闪烁且温度正常后仍不恢复，建议联系售后检测。`,
+> If the red light keeps flashing after the unit has cooled down, contact support for a professional inspection.`,
       images: [
-        { id: 'dcb107', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f0fff0"/><rect x="30" y="15" width="60" height="60" rx="6" fill="#e0f0e0"/><circle cx="48" cy="40" r="6" fill="#22c55e"/><circle cx="72" cy="40" r="6" fill="#ef4444"/><circle cx="60" cy="58" r="6" fill="#eab308"/><text x="60" y="85" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">DCB107 指示灯</text></svg>' }
+        { id: 'dcb107', svg: '<svg viewBox="0 0 120 90" fill="none"><rect width="120" height="90" fill="#f0fff0"/><rect x="30" y="15" width="60" height="60" rx="6" fill="#e0f0e0"/><circle cx="48" cy="40" r="6" fill="#22c55e"/><circle cx="72" cy="40" r="6" fill="#ef4444"/><circle cx="60" cy="58" r="6" fill="#eab308"/><text x="60" y="85" text-anchor="middle" font-size="9" fill="#999" font-family="system-ui">DCB107 Indicators</text></svg>' }
       ],
       chunks: [
-        { source: 'DCB107 用户手册', score: 97, text: '指示灯状态：绿灯常亮=充满，绿灯闪烁=充电中，红灯常亮=异常，红灯闪烁=过温保护。' },
-        { source: '充电器故障排查', score: 88, text: '若红灯闪烁且温度正常后仍不恢复，建议联系售后进行专业检测。' },
-        { source: '安全使用指南', score: 82, text: '充电时请确保通风良好，避免高温环境。切勿在充电时覆盖设备。' }
+        { source: 'DCB107 User Manual', score: 97, text: 'Indicator states: Solid green=fully charged, Flashing green=charging, Solid red=error, Flashing red=over-temperature protection.' },
+        { source: 'Charger Troubleshooting Guide', score: 88, text: 'If the red light keeps flashing after cooling down, contact support for professional inspection.' },
+        { source: 'Safety Usage Guide', score: 82, text: 'Ensure good ventilation while charging. Avoid high-temperature environments. Do not cover the device during charging.' }
       ],
       type: 'product'
     };
@@ -2022,50 +2022,50 @@ DCB107 是一款多用途充电器，指示灯的不同状态代表不同含义�
     };
   }
 
-  if (q.includes('物流') || q.includes('快递') || q.includes('shipping') || q.includes('delivery')) {
+  if (q.includes('物流') || q.includes('快递') || q.includes('shipping') || q.includes('delivery') || q.includes('tracking')) {
     return {
-      answer: `关于物流配送的常见问题：
+      answer: `Here's what you need to know about shipping:
 
-**配送时效：**
-- 标准配送：3-5 个工作日
-- 加急配送：1-2 个工作日（需额外费用）
-- 偏远地区可能延长 1-2 天
+**Delivery Times:**
+- Standard: 3-5 business days
+- Express: 1-2 business days (additional fee)
+- Remote areas: may take 1-2 extra days
 
-**如何查询物流：**
-1. 登录官网「我的订单」
-2. 点击订单详情查看物流单号
-3. 复制单号到快递公司官网查询
+**How to Track:**
+1. Log in and go to "My Orders"
+2. Click order details to find the tracking number
+3. Enter the number on the carrier's website
 
-**支持的快递公司：**
-顺丰速运、京东物流、中通快递、圆通速递
+**Supported Carriers:**
+SF Express, JD Logistics, ZTO Express, YTO Express
 
-> 订单发货后会通过短信和邮件通知物流单号，请留意查收。`,
+> You'll receive a tracking number via SMS and email once your order ships.`,
       images: [],
       chunks: [
-        { source: '物流配送说明 v2.0', score: 94, text: '标准配送3-5个工作日，加急1-2个工作日。支持顺丰、京东物流、中通、圆通。' },
-        { source: '订单管理 FAQ', score: 86, text: '登录官网→我的订单→订单详情→查看物流单号。发货后短信通知。' }
+        { source: 'Shipping Guide v2.0', score: 94, text: 'Standard delivery: 3-5 business days. Express: 1-2 business days. Supported carriers: SF Express, JD Logistics, ZTO, YTO.' },
+        { source: 'Order Management FAQ', score: 86, text: 'Log in → My Orders → Order Details → View tracking number. SMS notification sent after shipment.' }
       ],
       type: 'service'
     };
   }
 
   return {
-    answer: `感谢你的提问！我正在检索相关信息…
+    answer: `Thanks for your question! Let me look that up...
 
-根据知识库内容，这个问题可能涉及多个产品类别。为了更准确地帮助你，能否提供以下信息：
+Based on the knowledge base, this question may span multiple product categories. To help you more accurately, could you provide:
 
-1. **产品型号**（通常在产品背面或底部的标签上）
-2. **购买渠道和时间**
-3. **具体故障现象描述**
+1. **Product model number** (usually on a label on the back or bottom)
+2. **Where and when you purchased it**
+3. **A description of the issue**
 
-你也可以尝试：
-- 查阅产品使用手册中的故障排查章节
-- 拨打售后热线 **400-888-0000** 获取人工支持
-- 在 SmartService APP 中提交工单`,
+You can also:
+- Check the troubleshooting section in your product manual
+- Call our support hotline at **400-888-0000**
+- Submit a ticket through the SmartService app`,
     images: [],
     chunks: [
-      { source: '通用售后 FAQ', score: 72, text: '请提供产品型号、购买时间、故障现象以便更精准定位问题。' },
-      { source: '产品分类索引', score: 65, text: '知识库覆盖21类家电、电子产品和健身器材，共收录超过5000个问答对。' }
+      { source: 'General Support FAQ', score: 72, text: 'Please provide product model, purchase date, and a description of the issue for accurate diagnosis.' },
+      { source: 'Product Category Index', score: 65, text: 'Knowledge base covers 21 categories of appliances, electronics, and fitness equipment with over 5,000 Q&A pairs.' }
     ],
     type: 'general'
   };
@@ -2080,9 +2080,9 @@ function loadHistoryItem(idx) {
   items[idx].classList.add('active');
 
   const questions = [
-    '冰箱不制冷怎么办？',
-    'DCB107指示灯闪烁是什么意思？',
-    '如何申请退换货？',
+    'My refrigerator isn\'t cooling. What should I do?',
+    'What do the DCB107 blinking lights mean?',
+    'How do I return a product?',
     'What is the maximum load for the jetski?'
   ];
 
@@ -2124,7 +2124,7 @@ function selectLang(el, lang) {
    ======================================== */
 function openLightbox(id) {
   const lb = document.getElementById('lightbox');
-  lb.innerHTML = '<img src="/images/' + id + '" style="max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.3);" onerror="this.outerHTML=\'<div style=\\\'color:#999;font-size:16px;text-align:center;\\\'>图片未找到: ' + id + '</div>\'">';
+  lb.innerHTML = '<img src="/images/' + id + '" style="max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.3);" onerror="this.outerHTML=\'<div style=\\\'color:#999;font-size:16px;text-align:center;\\\'>Image not found: ' + id + '</div>\'">';
   lb.classList.add('visible');
 }
 function closeLightbox() {

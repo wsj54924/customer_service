@@ -109,12 +109,12 @@ class LLMClient:
         if context:
             user_content.append({
                 "type": "text",
-                "text": f"以下是客服知识库中的相关内容，请基于这些信息回答用户问题：\n\n{context}",
+                "text": f"Here is relevant content from the knowledge base. Please answer based on this information:\n\n{context}",
             })
 
         user_content.append({
             "type": "text",
-            "text": f"用户问题：{question}",
+            "text": f"User question: {question}",
         })
 
         # Add images
@@ -154,8 +154,8 @@ class LLMClient:
 
         user_text = ""
         if context:
-            user_text += f"以下是客服知识库中的相关内容，请基于这些信息回答用户问题：\n\n{context}\n\n"
-        user_text += f"用户问题：{question}"
+            user_text += f"Here is relevant content from the knowledge base. Please answer based on this information:\n\n{context}\n\n"
+        user_text += f"User question: {question}"
 
         messages.append({"role": "user", "content": user_text})
 

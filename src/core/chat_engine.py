@@ -175,7 +175,7 @@ class ChatEngine:
 
         for chunk, score in chunks:
             context_parts.append(
-                f"[来源: {chunk.manual_name}, 相关度: {score:.3f}]\n{chunk.text}"
+                f"[Source: {chunk.manual_name}, Relevance: {score:.3f}]\n{chunk.text}"
             )
             all_image_ids.extend(chunk.image_ids)
 
@@ -201,10 +201,10 @@ class ChatEngine:
         """Answer with conversation history."""
         history_text = ""
         for msg in history[-6:]:  # Last 3 turns
-            role = "用户" if msg["role"] == "user" else "客服助手"
+            role = "User" if msg["role"] == "user" else "Assistant"
             history_text += f"{role}: {msg['content']}\n"
 
-        full_prompt = f"对话历史：\n{history_text}\n\n当前问题：{question}"
+        full_prompt = f"Conversation history:\n{history_text}\n\nCurrent question: {question}"
 
         if images:
             return self.llm.chat_with_images(

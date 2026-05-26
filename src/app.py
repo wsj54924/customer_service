@@ -30,8 +30,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="多模态客服智能体 API",
-    description="具有多模态能力的客服智能体 - 竞赛作品",
+    title="Multimodal Customer Service Agent API",
+    description="AI-powered customer service agent with multimodal capabilities",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -77,7 +77,7 @@ async def root():
     if index.is_file():
         return FileResponse(str(index), media_type="text/html")
     return {
-        "service": "多模态客服智能体",
+        "service": "Multimodal Customer Service Agent",
         "version": "1.0.0",
         "endpoints": {
             "chat": "/api/v1/chat",
