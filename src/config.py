@@ -1,4 +1,4 @@
-"""Application configuration."""
+﻿"""Application configuration."""
 
 import os
 from pathlib import Path
@@ -13,8 +13,8 @@ BASE_DIR = Path(__file__).parent.parent
 class Settings(BaseSettings):
     # Paths
     base_dir: Path = BASE_DIR
-    data_dir: Path = BASE_DIR / "手册"
-    image_dir: Path = BASE_DIR / "手册" / "插图"
+    data_dir: Path = BASE_DIR / "鎵嬪唽"
+    image_dir: Path = BASE_DIR / "鎵嬪唽" / "鎻掑浘"
     vector_store_dir: Path = BASE_DIR / "data" / "vector_store"
     chunks_dir: Path = BASE_DIR / "data" / "chunks"
     processed_dir: Path = BASE_DIR / "data" / "processed"
@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     # Models
     chat_model: str = os.getenv("CHAT_MODEL", "qwen-plus")
     vision_model: str = os.getenv("VISION_MODEL", "qwen-vl-max")
-    embedding_model: str = os.getenv("EMBEDDING_MODEL", "qwen3-embedding:4b")
+    embedding_model: str = os.getenv("EMBEDDING_MODEL", "text-embedding-v3")
     reranker_model: str = os.getenv("RERANKER_MODEL", "")
 
     # Auth

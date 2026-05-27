@@ -1,4 +1,4 @@
-"""Text embedding using Ollama (local) or DashScope (cloud)."""
+﻿"""Text embedding using Ollama (local) or DashScope (cloud)."""
 
 import time
 import numpy as np
@@ -12,6 +12,9 @@ class Embedder:
 
     def __init__(self, model_name=None):
         self.model_name = model_name or settings.embedding_model
+        self._dashscope_model = self.model_name
+        if self._dashscope_model and ':' in self._dashscope_model:
+            self._dashscope_model = self._dashscope_model.split(':', 1)[0]
         self._backend = None  # resolved on first call
 
     def _detect_backend(self):
@@ -54,7 +57,7 @@ class Embedder:
         import dashscope
         dashscope.api_key = settings.dashscope_api_key
         from dashscope import TextEmbedding
-        resp = TextEmbedding.call(model=self.model_name, input=texts)
+        resp = TextEmbedding.call(model=self._dashscope_model, input=texts)
         if resp.status_code != 200:
             raise RuntimeError(
                 "DashScope error: {} - {}".format(resp.code, resp.message)
