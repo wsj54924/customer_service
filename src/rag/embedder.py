@@ -17,7 +17,11 @@ class Embedder:
 
     def _detect_backend(self):
         """Detect available backend: prefer Ollama, fallback to DashScope."""
-        logger.info(f"Embedder init: model={self.model_name} dashscope_model={self._dashscope_model}")
+        logger.info(
+            f"Embedder init: model={self.model_name} "
+            f"dashscope_model={self._dashscope_model} "
+            f"ollama_url={settings.ollama_base_url}"
+        )
         if self._backend:
             return self._backend
         # Try Ollama first
@@ -27,18 +31,35 @@ class Embedder:
             resp = httpx.get("{}/api/tags".format(base_url), timeout=3.0)
             if resp.status_code == 200:
                 self._backend = "ollama"
-                logger.info("Using Ollama backend at {}".format(base_url))
+                logger.info(
+                    "Using Ollama backend at {} with model={}".format(
+                        base_url, self.model_name
+                    )
+                )
                 return self._backend
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning(
+                "Ollama not available at {}: {}. "
+                "Note: Vercel cannot reach localhost; "
+                "set OLLAMA_BASE_URL to a public endpoint "
+                "or use DashScope.".format(settings.ollama_base_url, e)
+            )
         # Fallback to DashScope
         if settings.dashscope_api_key:
             self._backend = "dashscope"
-            logger.info("Using DashScope cloud backend")
+            logger.warning(
+                "Using DashScope cloud backend with model={}. "
+                "WARNING: vector store was built with local model '{}'; "
+                "if dimensions differ, queries will fail. "
+                "Rebuild index with DashScope or use a matching model.".format(
+                    self._dashscope_model, self.model_name
+                )
+            )
             return self._backend
         raise RuntimeError(
             "No embedding backend available. "
-            "Start Ollama locally or set DASHSCOPE_API_KEY."
+            "Start Ollama locally (OLLAMA_BASE_URL) "
+            "or set DASHSCOPE_API_KEY."
         )
 
     def _call_ollama(self, texts):
@@ -53,22 +74,33 @@ class Embedder:
         return resp.json()["embeddings"]
 
     def _call_dashscope(self, texts):
+        import json as _json
         import dashscope
         dashscope.api_key = settings.dashscope_api_key
         from dashscope import TextEmbedding
         resp = TextEmbedding.call(model=self._dashscope_model, input=texts)
         if resp.status_code != 200:
             raise RuntimeError(
-                "DashScope embedding error: {} - {} (model={})".format(resp.code, resp.message, self._dashscope_model)
+                "DashScope embedding error: {} - {} (model={})".format(
+                    resp.code, resp.message, self._dashscope_model
+                )
             )
         output = resp.output
+        # Handle JSON string responses
+        if isinstance(output, str):
+            try:
+                output = _json.loads(output)
+            except _json.JSONDecodeError:
+                pass
         if isinstance(output, list) and output and isinstance(output[0], dict) and "embedding" in output[0]:
             sorted_embs = sorted(output, key=lambda x: x.get("text_index", 0))
             return [item["embedding"] for item in sorted_embs]
         if isinstance(output, list) and output and isinstance(output[0], list):
             return output
         raise RuntimeError(
-            "DashScope embedding response unexpected (model={}): {}".format(self._dashscope_model, repr(output)[:500])
+            "DashScope embedding response unexpected (model={}, type={}): {}".format(
+                self._dashscope_model, type(output).__name__, repr(output)[:500]
+            )
         )
 
     def _call_api(self, texts):

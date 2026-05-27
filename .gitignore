@@ -27,7 +27,7 @@ Desktop.ini
 .DS_Store
 
 # Data & models (large files)
-# # data/vector_store/
+# data/vector_store/
 data/chunks/
 data/index/
 data/processed/
