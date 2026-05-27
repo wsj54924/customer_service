@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     # Ollama (local embedding)
     ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
+    # HuggingFace (free cloud embedding, same model as local Ollama)
+    hf_api_token: str = os.getenv("HF_API_TOKEN", "")
+
     # DashScope (optional, for cloud embedding/reranking)
     dashscope_api_key: str = os.getenv("DASHSCOPE_API_KEY", "")
 

@@ -1,4 +1,4 @@
-﻿"""Text embedding using Ollama (local) or DashScope (cloud)."""
+﻿"""Text embedding using Ollama (local), HuggingFace (cloud), or DashScope (cloud)."""
 
 import time
 import numpy as np
@@ -8,19 +8,20 @@ from src.rag.manual_parser import ManualChunk
 
 
 class Embedder:
-    """Embedding with auto-detection: Ollama local or DashScope cloud."""
+    """Embedding with auto-detection: Ollama -> HuggingFace -> DashScope."""
 
     def __init__(self, model_name=None):
         self.model_name = model_name or settings.embedding_model
         self._dashscope_model = settings.dashscope_embedding_model
+        self._hf_model = "Qwen/Qwen3-Embedding-4B"
         self._backend = None  # resolved on first call
 
     def _detect_backend(self):
-        """Detect available backend: prefer Ollama, fallback to DashScope."""
+        """Detect available backend: prefer Ollama, then HuggingFace, then DashScope."""
         logger.info(
-            f"Embedder init: model={self.model_name} "
-            f"dashscope_model={self._dashscope_model} "
-            f"ollama_url={settings.ollama_base_url}"
+            "Embedder init: model={} dashscope_model={} ollama_url={}".format(
+                self.model_name, self._dashscope_model, settings.ollama_base_url
+            )
         )
         if self._backend:
             return self._backend
@@ -42,8 +43,17 @@ class Embedder:
                 "Ollama not available at {}: {}. "
                 "Note: Vercel cannot reach localhost; "
                 "set OLLAMA_BASE_URL to a public endpoint "
-                "or use DashScope.".format(settings.ollama_base_url, e)
+                "or use HuggingFace/DashScope.".format(
+                    settings.ollama_base_url, e
+                )
             )
+        # Fallback to HuggingFace (free, same model as local Ollama, 2560-dim)
+        if settings.hf_api_token:
+            self._backend = "huggingface"
+            logger.info(
+                "Using HuggingFace backend with model={}".format(self._hf_model)
+            )
+            return self._backend
         # Fallback to DashScope
         if settings.dashscope_api_key:
             self._backend = "dashscope"
@@ -58,8 +68,7 @@ class Embedder:
             return self._backend
         raise RuntimeError(
             "No embedding backend available. "
-            "Start Ollama locally (OLLAMA_BASE_URL) "
-            "or set DASHSCOPE_API_KEY."
+            "Set OLLAMA_BASE_URL, HF_API_TOKEN, or DASHSCOPE_API_KEY."
         )
 
     def _call_ollama(self, texts):
@@ -72,6 +81,31 @@ class Embedder:
         )
         resp.raise_for_status()
         return resp.json()["embeddings"]
+
+    def _call_huggingface(self, texts):
+        """Call HuggingFace Inference API with Qwen3-Embedding-4B (2560-dim)."""
+        import httpx
+        api_url = "https://router.huggingface.co/hf-inference/models/{}".format(
+            self._hf_model
+        )
+        headers = {"Authorization": "Bearer {}".format(settings.hf_api_token)}
+        all_embeddings = []
+        for text in texts:
+            resp = httpx.post(
+                api_url, headers=headers, json={"inputs": text}, timeout=30.0
+            )
+            if resp.status_code != 200:
+                raise RuntimeError(
+                    "HuggingFace embedding error: {} - {} (model={})".format(
+                        resp.status_code, resp.text[:300], self._hf_model
+                    )
+                )
+            emb = resp.json()
+            # HF may return flat [dim1, dim2, ...] or nested [[dim1, dim2, ...]]
+            if isinstance(emb, list) and emb and isinstance(emb[0], list):
+                emb = emb[0]
+            all_embeddings.append(emb)
+        return all_embeddings
 
     def _call_dashscope(self, texts):
         import json as _json
@@ -92,7 +126,12 @@ class Embedder:
                 output = _json.loads(output)
             except _json.JSONDecodeError:
                 pass
-        if isinstance(output, list) and output and isinstance(output[0], dict) and "embedding" in output[0]:
+        if (
+            isinstance(output, list)
+            and output
+            and isinstance(output[0], dict)
+            and "embedding" in output[0]
+        ):
             sorted_embs = sorted(output, key=lambda x: x.get("text_index", 0))
             return [item["embedding"] for item in sorted_embs]
         if isinstance(output, list) and output and isinstance(output[0], list):
@@ -107,6 +146,8 @@ class Embedder:
         backend = self._detect_backend()
         if backend == "ollama":
             return self._call_ollama(texts)
+        if backend == "huggingface":
+            return self._call_huggingface(texts)
         return self._call_dashscope(texts)
 
     def embed_texts(self, texts, batch_size=25):
