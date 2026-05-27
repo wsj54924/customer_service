@@ -15,6 +15,8 @@ class Embedder:
         self._dashscope_model = self.model_name
         if self._dashscope_model and ':' in self._dashscope_model:
             self._dashscope_model = self._dashscope_model.split(':', 1)[0]
+        if self._dashscope_model and '/' in self._dashscope_model:
+            self._dashscope_model = settings.embedding_model_fallback
         self._backend = None  # resolved on first call
 
     def _detect_backend(self):

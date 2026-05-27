@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     chat_model: str = os.getenv("CHAT_MODEL", "qwen-plus")
     vision_model: str = os.getenv("VISION_MODEL", "qwen-vl-max")
     embedding_model: str = os.getenv("EMBEDDING_MODEL", "text-embedding-v3")
+    embedding_model_fallback: str = "text-embedding-v3"
     reranker_model: str = os.getenv("RERANKER_MODEL", "")
 
     # Auth
