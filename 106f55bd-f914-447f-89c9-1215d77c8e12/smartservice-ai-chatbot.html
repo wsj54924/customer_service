@@ -1352,31 +1352,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       New Chat
     </button>
     <div class="chat-history" id="chatHistory">
-      <div class="chat-history-group">
-        <div class="chat-history-group-title">TODAY</div>
-        <div class="chat-history-item" onclick="loadHistoryItem(0)">
-          <div class="chat-history-item-title">Refrigerator not cooling</div>
-          <div class="chat-history-item-time">14:32</div>
-        </div>
-        <div class="chat-history-item" onclick="loadHistoryItem(1)">
-          <div class="chat-history-item-title">DCB107 indicator lights</div>
-          <div class="chat-history-item-time">13:15</div>
-        </div>
-      </div>
-      <div class="chat-history-group">
-        <div class="chat-history-group-title">YESTERDAY</div>
-        <div class="chat-history-item" onclick="loadHistoryItem(2)">
-          <div class="chat-history-item-title">How to request a return?</div>
-          <div class="chat-history-item-time">Yesterday 16:40</div>
-        </div>
-      </div>
-      <div class="chat-history-group">
-        <div class="chat-history-group-title">EARLIER</div>
-        <div class="chat-history-item" onclick="loadHistoryItem(3)">
-          <div class="chat-history-item-title">Jetski max load capacity</div>
-          <div class="chat-history-item-time">May 18</div>
-        </div>
-      </div>
+      <!-- History items populated dynamically -->
     </div>
     <div class="sidebar-footer">
       <button class="sidebar-footer-btn" onclick="openSettings()" title="Settings">
@@ -1615,7 +1591,9 @@ const state = {
   messageCount: 0,
   sessionId: 'sess_' + Math.random().toString(36).slice(2, 8),
   lang: 'zh',
-  sending: false
+  sending: false,
+  chatHistories: JSON.parse(localStorage.getItem('chatHistories') || '[]'),
+  messages: []
 };
 
 /* ========================================
@@ -1663,8 +1641,11 @@ function switchRightTab(btn, tab) {
    Chat Logic
    ======================================== */
 function newChat() {
+  // Save current chat before starting new one
+  saveChatToHistory();
   state.currentChat = null;
   state.messageCount = 0;
+  state.messages = [];
   state.sessionId = 'sess_' + Math.random().toString(36).slice(2, 8);
   document.getElementById('sessionId').textContent = state.sessionId;
   document.getElementById('msgCount').textContent = '0';
@@ -1672,6 +1653,7 @@ function newChat() {
   document.getElementById('welcomeScreen').classList.remove('hidden');
   document.getElementById('messagesArea').classList.add('hidden');
   document.getElementById('messagesArea').innerHTML = '<div class="typing-indicator" id="typingIndicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  renderChatHistory();
 }
 
 function askSuggestion(text) {
@@ -1700,6 +1682,7 @@ function sendMessage(text) {
   document.getElementById('messagesArea').classList.remove('hidden');
 
   appendMessage('user', msg);
+  state.messages.push({ role: 'user', text: msg });
   state.messageCount++;
 
   showTyping(true);
@@ -1739,8 +1722,10 @@ function sendMessage(text) {
     }));
 
     appendMessage('ai', resp.answer, images);
+    state.messages.push({ role: 'ai', text: resp.answer });
     state.messageCount++;
     document.getElementById('msgCount').textContent = state.messageCount;
+    saveChatToHistory();
     document.getElementById('responseTime').textContent = ((Date.now() - startTime) / 1000).toFixed(1) + 's';
 
     updateRightPanel({ chunks: resp.chunks, type: resp.type, images: resp.images });
@@ -2072,23 +2057,119 @@ You can also:
 }
 
 /* ========================================
-   History
+   History (localStorage-based)
    ======================================== */
+function saveChatToHistory() {
+  if (!state.messages || state.messages.length === 0) return;
+  const firstUserMsg = state.messages.find(m => m.role === 'user');
+  const title = firstUserMsg ? firstUserMsg.text.substring(0, 40) : 'New Chat';
+  const now = new Date();
+  const entry = {
+    id: state.sessionId,
+    title: title,
+    time: now.toISOString(),
+    messages: state.messages.slice()
+  };
+  // Update existing or add new
+  const idx = state.chatHistories.findIndex(h => h.id === state.sessionId);
+  if (idx >= 0) {
+    state.chatHistories[idx] = entry;
+  } else {
+    state.chatHistories.unshift(entry);
+  }
+  // Keep max 50
+  if (state.chatHistories.length > 50) {
+    state.chatHistories = state.chatHistories.slice(0, 50);
+  }
+  localStorage.setItem('chatHistories', JSON.stringify(state.chatHistories));
+  renderChatHistory();
+}
+
+function renderChatHistory() {
+  const container = document.getElementById('chatHistory');
+  if (!container) return;
+  container.innerHTML = '';
+  if (state.chatHistories.length === 0) return;
+
+  const now = new Date();
+  const todayStr = now.toDateString();
+  const yesterday = new Date(now); yesterday.setDate(now.getDate() - 1);
+  const yesterdayStr = yesterday.toDateString();
+
+  let groups = { today: [], yesterday: [], earlier: [] };
+  state.chatHistories.forEach((h, idx) => {
+    const d = new Date(h.time);
+    const ds = d.toDateString();
+    if (ds === todayStr) groups.today.push({ h, idx });
+    else if (ds === yesterdayStr) groups.yesterday.push({ h, idx });
+    else groups.earlier.push({ h, idx });
+  });
+
+  function makeGroup(label, items) {
+    if (items.length === 0) return;
+    const grp = document.createElement('div');
+    grp.className = 'chat-history-group';
+    const ttl = document.createElement('div');
+    ttl.className = 'chat-history-group-title';
+    ttl.textContent = label;
+    grp.appendChild(ttl);
+    items.forEach(({ h, idx }) => {
+      const d = new Date(h.time);
+      const item = document.createElement('div');
+      item.className = 'chat-history-item';
+      if (h.id === state.sessionId) item.classList.add('active');
+      item.onclick = () => loadHistoryItem(idx);
+      const title = document.createElement('div');
+      title.className = 'chat-history-item-title';
+      title.textContent = h.title || 'New Chat';
+      const time = document.createElement('div');
+      time.className = 'chat-history-item-time';
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const dateStr = d.toDateString();
+      if (dateStr === todayStr) {
+        time.textContent = hh + ':' + mm;
+      } else if (dateStr === yesterdayStr) {
+        time.textContent = 'Yesterday ' + hh + ':' + mm;
+      } else {
+        time.textContent = (d.getMonth()+1) + '/' + d.getDate() + ' ' + hh + ':' + mm;
+      }
+      item.appendChild(title);
+      item.appendChild(time);
+      grp.appendChild(item);
+    });
+    container.appendChild(grp);
+  }
+
+  makeGroup('TODAY', groups.today);
+  makeGroup('YESTERDAY', groups.yesterday);
+  makeGroup('EARLIER', groups.earlier);
+}
+
 function loadHistoryItem(idx) {
-  const items = document.querySelectorAll('.chat-history-item');
-  items.forEach(i => i.classList.remove('active'));
-  items[idx].classList.add('active');
+  const h = state.chatHistories[idx];
+  if (!h) return;
 
-  const questions = [
-    'My refrigerator isn\'t cooling. What should I do?',
-    'What do the DCB107 blinking lights mean?',
-    'How do I return a product?',
-    'What is the maximum load for the jetski?'
-  ];
+  // Restore state
+  state.sessionId = h.id;
+  state.messages = h.messages.slice();
+  state.messageCount = h.messages.length;
+  document.getElementById('sessionId').textContent = state.sessionId;
+  document.getElementById('msgCount').textContent = state.messageCount;
+  document.getElementById('chatTitle').textContent = h.title || 'Chat';
 
-  newChat();
-  document.getElementById('chatTitle').textContent = questions[idx];
-  setTimeout(() => sendMessage(questions[idx]), 200);
+  // Switch to chat view
+  switchToChat();
+  document.getElementById('welcomeScreen').classList.add('hidden');
+  document.getElementById('messagesArea').classList.remove('hidden');
+  document.getElementById('messagesArea').innerHTML = '<div class="typing-indicator" id="typingIndicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+
+  // Render saved messages
+  h.messages.forEach(m => {
+    appendMessage(m.role, m.text);
+  });
+
+  renderChatHistory();
 }
 
 /* ========================================
