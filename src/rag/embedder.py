@@ -12,9 +12,7 @@ class Embedder:
 
     def __init__(self, model_name=None):
         self.model_name = model_name or settings.embedding_model
-        self._dashscope_model = self.model_name
-        if self._dashscope_model and ':' in self._dashscope_model:
-            self._dashscope_model = self._dashscope_model.split(':', 1)[0]
+        self._dashscope_model = settings.dashscope_embedding_model
         self._backend = None  # resolved on first call
 
     def _detect_backend(self):
@@ -63,8 +61,15 @@ class Embedder:
             raise RuntimeError(
                 "DashScope embedding error: {} - {} (model={})".format(resp.code, resp.message, self._dashscope_model)
             )
-        sorted_embs = sorted(resp.output, key=lambda x: x["text_index"])
-        return [item["embedding"] for item in sorted_embs]
+        output = resp.output
+        if isinstance(output, list) and output and isinstance(output[0], dict) and "embedding" in output[0]:
+            sorted_embs = sorted(output, key=lambda x: x.get("text_index", 0))
+            return [item["embedding"] for item in sorted_embs]
+        if isinstance(output, list) and output and isinstance(output[0], list):
+            return output
+        raise RuntimeError(
+            "DashScope embedding response unexpected (model={}): {}".format(self._dashscope_model, repr(output)[:500])
+        )
 
     def _call_api(self, texts):
         backend = self._detect_backend()
