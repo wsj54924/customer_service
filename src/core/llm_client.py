@@ -68,12 +68,16 @@ class LLMClient:
         client, provider = self._get_client()
         model = model or settings.chat_model
 
-        response = client.chat.completions.create(
-            model=model,
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-        )
+        logger.info(f"LLM request: provider={provider} model={model} base_url={settings.openai_base_url}")
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+        except Exception as e:
+            raise RuntimeError(f"LLM chat error: {e} (provider={provider}, model={model}, base_url={settings.openai_base_url})") from e
 
         return response.choices[0].message.content
 
@@ -128,12 +132,16 @@ class LLMClient:
 
         messages.append({"role": "user", "content": user_content})
 
-        response = client.chat.completions.create(
-            model=model,
-            messages=messages,
-            temperature=0.1,
-            max_tokens=2048,
-        )
+        logger.info(f"LLM request: provider={provider} model={model} base_url={settings.openai_base_url}")
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=0.1,
+                max_tokens=2048,
+            )
+        except Exception as e:
+            raise RuntimeError(f"LLM chat error: {e} (provider={provider}, model={model}, base_url={settings.openai_base_url})") from e
 
         return response.choices[0].message.content
 
@@ -159,11 +167,15 @@ class LLMClient:
 
         messages.append({"role": "user", "content": user_text})
 
-        response = client.chat.completions.create(
-            model=model,
-            messages=messages,
-            temperature=0.1,
-            max_tokens=2048,
-        )
+        logger.info(f"LLM request: provider={provider} model={model} base_url={settings.openai_base_url}")
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=0.1,
+                max_tokens=2048,
+            )
+        except Exception as e:
+            raise RuntimeError(f"LLM chat error: {e} (provider={provider}, model={model}, base_url={settings.openai_base_url})") from e
 
         return response.choices[0].message.content

@@ -18,6 +18,7 @@ class Embedder:
         self._backend = None  # resolved on first call
 
     def _detect_backend(self):
+        logger.info(f"Embedder init: model={self.model_name} dashscope_model={self._dashscope_model}")
         """Detect available backend: prefer Ollama, fallback to DashScope."""
         if self._backend:
             return self._backend
@@ -60,7 +61,7 @@ class Embedder:
         resp = TextEmbedding.call(model=self._dashscope_model, input=texts)
         if resp.status_code != 200:
             raise RuntimeError(
-                "DashScope error: {} - {}".format(resp.code, resp.message)
+                "DashScope embedding error: {} - {} (model={})".format(resp.code, resp.message, self._dashscope_model)
             )
         sorted_embs = sorted(resp.output, key=lambda x: x["text_index"])
         return [item["embedding"] for item in sorted_embs]
