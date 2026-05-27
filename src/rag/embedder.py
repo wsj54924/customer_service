@@ -96,7 +96,7 @@ class Embedder:
         }
         all_embeddings = []
         for text in texts:
-            payload = {"model": self._hf_model, "input": [text]}
+            payload = {"model": self._hf_model, "input": [text], "encoding_format": "float"}
             resp = httpx.post(api_url, headers=headers, json=payload, timeout=30.0)
             if resp.status_code != 200:
                 raise RuntimeError(
@@ -208,3 +208,4 @@ class Embedder:
     def embed_query(self, query):
         embs = self._call_api([query])
         return np.array(embs[0])
+
