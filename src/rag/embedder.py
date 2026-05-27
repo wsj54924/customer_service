@@ -1,4 +1,4 @@
-﻿"""Text embedding using Ollama (local), HuggingFace (cloud), or DashScope (cloud)."""
+﻿"""Text embedding using Ollama (local), ModelScope, HuggingFace, or DashScope (cloud)."""
 
 import time
 import numpy as np
@@ -8,7 +8,7 @@ from src.rag.manual_parser import ManualChunk
 
 
 class Embedder:
-    """Embedding with auto-detection: Ollama -> HuggingFace -> DashScope."""
+    """Embedding with auto-detection: Ollama -> ModelScope -> HuggingFace -> DashScope."""
 
     def __init__(self, model_name=None):
         self.model_name = model_name or settings.embedding_model
@@ -17,7 +17,7 @@ class Embedder:
         self._backend = None  # resolved on first call
 
     def _detect_backend(self):
-        """Detect available backend: prefer Ollama, then HuggingFace, then DashScope."""
+        """Detect available backend: Ollama -> ModelScope -> HuggingFace -> DashScope."""
         logger.info(
             "Embedder init: model={} dashscope_model={} ollama_url={}".format(
                 self.model_name, self._dashscope_model, settings.ollama_base_url
@@ -40,14 +40,18 @@ class Embedder:
                 return self._backend
         except Exception as e:
             logger.warning(
-                "Ollama not available at {}: {}. "
-                "Note: Vercel cannot reach localhost; "
-                "set OLLAMA_BASE_URL to a public endpoint "
-                "or use HuggingFace/DashScope.".format(
+                "Ollama not available at {}: {}".format(
                     settings.ollama_base_url, e
                 )
             )
-        # Fallback to HuggingFace (free, same model as local Ollama, 2560-dim)
+        # Fallback to ModelScope (free, same model as local Ollama, 2560-dim)
+        if settings.modelscope_api_token:
+            self._backend = "modelscope"
+            logger.info(
+                "Using ModelScope backend with model={}".format(self._hf_model)
+            )
+            return self._backend
+        # Fallback to HuggingFace
         if settings.hf_api_token:
             self._backend = "huggingface"
             logger.info(
@@ -68,7 +72,7 @@ class Embedder:
             return self._backend
         raise RuntimeError(
             "No embedding backend available. "
-            "Set OLLAMA_BASE_URL, HF_API_TOKEN, or DASHSCOPE_API_KEY."
+            "Set OLLAMA_BASE_URL, MODELSCOPE_API_TOKEN, HF_API_TOKEN, or DASHSCOPE_API_KEY."
         )
 
     def _call_ollama(self, texts):
@@ -81,6 +85,36 @@ class Embedder:
         )
         resp.raise_for_status()
         return resp.json()["embeddings"]
+
+    def _call_modelscope(self, texts):
+        """Call ModelScope Inference API with Qwen3-Embedding-4B (2560-dim)."""
+        import httpx
+        api_url = "https://api-inference.modelscope.cn/v1/embeddings"
+        headers = {
+            "Authorization": "Bearer {}".format(settings.modelscope_api_token),
+            "Content-Type": "application/json",
+        }
+        all_embeddings = []
+        for text in texts:
+            payload = {"model": self._hf_model, "input": [text]}
+            resp = httpx.post(api_url, headers=headers, json=payload, timeout=30.0)
+            if resp.status_code != 200:
+                raise RuntimeError(
+                    "ModelScope embedding error: {} - {} (model={})".format(
+                        resp.status_code, resp.text[:300], self._hf_model
+                    )
+                )
+            data = resp.json()
+            if "data" in data and data["data"]:
+                emb = data["data"][0].get("embedding", [])
+                all_embeddings.append(emb)
+            else:
+                raise RuntimeError(
+                    "ModelScope response missing embedding data: {}".format(
+                        str(data)[:300]
+                    )
+                )
+        return all_embeddings
 
     def _call_huggingface(self, texts):
         """Call HuggingFace Inference API with Qwen3-Embedding-4B (2560-dim)."""
@@ -146,6 +180,8 @@ class Embedder:
         backend = self._detect_backend()
         if backend == "ollama":
             return self._call_ollama(texts)
+        if backend == "modelscope":
+            return self._call_modelscope(texts)
         if backend == "huggingface":
             return self._call_huggingface(texts)
         return self._call_dashscope(texts)

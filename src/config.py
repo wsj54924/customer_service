@@ -13,20 +13,23 @@ BASE_DIR = Path(__file__).parent.parent
 class Settings(BaseSettings):
     # Paths
     base_dir: Path = BASE_DIR
-    data_dir: Path = BASE_DIR / "鎵嬪唽"
-    image_dir: Path = BASE_DIR / "鎵嬪唽" / "鎻掑浘"
+    data_dir: Path = BASE_DIR / "manuals"
+    image_dir: Path = BASE_DIR / "manuals" / "images"
     vector_store_dir: Path = BASE_DIR / "data" / "vector_store"
     chunks_dir: Path = BASE_DIR / "data" / "chunks"
     processed_dir: Path = BASE_DIR / "data" / "processed"
 
-    # LLM API (OpenAI-compatible, e.g. MiMo, OpenAI, etc.)
+    # LLM API (OpenAI-compatible, e.g. DeepSeek)
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     openai_base_url: str = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
 
     # Ollama (local embedding)
     ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
-    # HuggingFace (free cloud embedding, same model as local Ollama)
+    # ModelScope (free cloud embedding, same model as local Ollama)
+    modelscope_api_token: str = os.getenv("MODELSCOPE_API_TOKEN", "")
+
+    # HuggingFace (cloud embedding fallback)
     hf_api_token: str = os.getenv("HF_API_TOKEN", "")
 
     # DashScope (optional, for cloud embedding/reranking)
